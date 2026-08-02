@@ -77,21 +77,21 @@ var welcomeTrial = {
     stimulus: function () {
         if (language == "HUN") {
             return `
-    <h2>Üdvözlünk a <b>Metatudomány Kutatócsoport</b> vizsgálatában!</h2>
+    <div class = "frame"><h2>Üdvözlünk a <b>Metatudomány Kutatócsoport</b> vizsgálatában!</h2>
     <p>Egy tudományos kutatásban veszel részt, amelynek vezetője <b>Bognár Miklós</b>, az ELTE Affektív Pszichológia Tanszékének kutatója.
     A kutatás célja megvizsgálni, hogy miként működik a kognitív kontroll.</p>
     <h3>Részvétel</h3>
     <p>A kutatásban való részvétel teljesen önkéntes. A vizsgálatot bármikor indoklás nélkül megszakíthatod.
     Ha bármilyen kérdésed, észrevételed vagy problémád van a kutatással kapcsolatban,
-    írj Bognár Miklósnak a <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a> címre.</p>
+    írj Bognár Miklósnak a <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a> címre.</p></div>
   `}
         else if (language == "EN") {
-            return `<h2>Welcome to the experiment of the <b>Metascience Lab</b>!</h2>
+            return `<div class = "frame"><h2>Welcome to the experiment of the <b>Metascience Lab</b>!</h2>
     <p>You are participating in a scientific experiment carried out under the supervision of <b>Miklós Bognár</b>, researcher at the Department of Affective Psychology at Eötvös Loránd University.</p>
     <p>The aim of the study is to investigate the mechanisms of cognitive control</p>
     <h3>Participation</h3>
     <p>Participation is voluntary. You can withdraw from participation at any point of the experiment without having to provide any reason for your actions.
-    If you have any questions or suggestions concerning the experiment, please write an email to the following address:<a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a></p>
+    If you have any questions or suggestions concerning the experiment, please write an email to the following address: <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a></p></div>
   `
         }
     },
@@ -106,12 +106,12 @@ var fullScreenTrial = {
     fullscreen_mode: true,
     message: function () {
         if (language == "HUN") {
-            return `<p><b>A kísérlet teljes képernyős módba fog váltani.
-         Kérlek kattintsd a <span class="key"> Folytatás </span> gombra</b></p>`
+            return `<div class = "frame"><p><b>A kísérlet teljes képernyős módba fog váltani.
+         Kérlek kattintsd a <span class="key"> Folytatás </span> gombra</b></p></div>`
         }
         else if (language == "EN") {
-            return `<p><b>The experiment will switch to full-screen mode.</p>
-            <p> Please, click on the <span class="key"> Continue</span> button below!</p>`
+            return `<div class = "frame"><p><b>The experiment will switch to full-screen mode.</p>
+            <p> Please, click on the <span class="key"> Continue</span> button below!</p></div>`
         }
     },
     button_label: function () {
@@ -142,13 +142,21 @@ var consentTrial = {
         },
         required: true
     }],
+    button_label: function () {
+        if (language == "HUN") {
+            return "Folytatás"
+        }
+        else if (language == "EN") {
+            return "Continue"
+        }
+    },
     data: { collect: true },
     on_finish: function (data) {
         var response = data.response.consent;
         if (["No", "Nem"].includes(response)) {
             if (language == "HUN") {
                 jsPsych.abortExperiment(
-                    "Megértjük a döntésed, a kísérlet számodra véget ért."
+                    `Megértjük a döntésed, a kísérlet számodra véget ért.`
                 )
             }
             else if (language == "EN") {
@@ -187,6 +195,14 @@ var genderTrial = {
         },
         required: true
     }],
+    button_label: function () {
+        if (language == "HUN") {
+            return "Folytatás"
+        }
+        else if (language == "EN") {
+            return "Continue"
+        }
+    },
     data: { collect: true }
 }
 
@@ -208,34 +224,42 @@ var instructionsTrial = {
     type: jsPsychInstructions,
     pages: function () {
         if (language == "HUN") {
-            return [`<h1>Feladat</h1><h3>A képernyőn különböző irányba mutató és mozgó nyilakat fogsz látni.
+            return [`<div class = "frame"><h1>Feladat</h1><h3>A képernyőn különböző irányba mutató és mozgó nyilakat fogsz látni.
                 A feladatod az lesz, hogy azon iránynak megfelelő gombot nyomd le a billentyűzeten, 
                 amelyik irányba a nyilak <b>mutatnak<b></h3>
                 <h2>Vigyázz!</h2>
-                <h3>A nyilak mozgásiránya nem biztos, hogy megegyezik a mutatott iránnyal</h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p>`,
-                `<h3> Ha a nyilak <b>balra</b> mutatnak, nyomd meg a <span class ='key'>F</span> billentyűt </h3> 
-                <h3>Ha a nyilak <b>balra</b> mutatnak, nyomd meg a <span class ='key'>G</span> billentyűt </h3> 
-                <h3>Ha a nyilak <b>balra</b> mutatnak, nyomd meg a <span class ='key'>J</span> billentyűt </h3> 
-                <h3>Ha a nyilak <b>balra</b> mutatnak, nyomd meg a <span class ='key'>N</span> billentyűt </h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p>`,
-                `<h3>Kérlek mindig igyekezz a minél gyorsabb és pontosabb válaszadásra</h3>
-                    <p> A kísérlet egy gyakorló blokkal kezdődik. Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p>`]
+                <h3>A nyilak mozgásiránya nem biztos, hogy megegyezik a mutatott iránnyal.</h3>
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
+                `<div class = "frameArrows"><h3> Ha a nyilak <b>balra</b> mutatnak, nyomd meg a <span class ='key'>F</span> billentyűt. 
+              <img src ="http://localhost:8000/arrow1.png" class ="arrow-left"></h3> 
+                <h3>Ha a nyilak <b>jobbra</b> mutatnak, nyomd meg a <span class ='key'>G</span> billentyűt. 
+                <img src ="http://localhost:8000/arrow1.png" class ="arrow-right"></h3> 
+                <h3>Ha a nyilak <b>felfelé</b> mutatnak, nyomd meg a <span class ='key'>J</span> billentyűt. 
+                <img src ="http://localhost:8000/arrow1.png" class ="arrow-up"></h3> 
+                <h3>Ha a nyilak <b>lefelé</b> mutatnak, nyomd meg a <span class ='key'>N</span> billentyűt. 
+                <img src ="http://localhost:8000/arrow1.png" class ="arrow-down"></h3>
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz.</p></div>`,
+                `<div class = "frame"><h3>Kérlek mindig igyekezz a minél gyorsabb és pontosabb válaszadásra.</h3>
+                    <p> A kísérlet egy gyakorló blokkal kezdődik. Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz.</p></div>`]
         }
         else if (language == "EN") {
-            return [`<h1>Task</h1><h3>You will see arrows on the screen pointing and moving in different directions.
+            return [`<div class = "frame"><h1>Task</h1><h3>You will see arrows on the screen pointing and moving in different directions.
                 Your task is to press the key corresponding to the direction the arrows 
-                are <b>pointing</b></h3>
+                are <b>pointing</b>.</h3>
                 <h2>Be careful!</h2>
-                <h3>The direction the arrows move in may not match the direction they point</h3>
-                <p>Press <span class='key'>SPACE</span> to continue</p>`,
-                `<h3>If the arrows point to the <b>left</b>, press the <span class='key'>F</span> key.</h3> 
-                <h3>If the arrows point to the<b>right</b>, press the <span class='key'>G</span> key.</h3> 
-                <h3>If the arrows point <b>up</b>, press the <span class='key'>J</span> key.</h3> 
-                <h3>If the arrows point <b>down</b>, press the <span class='key'>N</span> key.</h3>
-                <h3>Press <span class='key'>SPACE</span> to continue</h3>`,
-                `<h3>Please always try to respond as quickly and accurately as possible!</h3>
-                    <h3>The experiment begins with a practice block. Press <span class='key'>SPACE</span> to continue</h3>`]
+                <h3>The direction the arrows move in may not match the direction in which they point.</h3>
+                <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
+                `<div class = "frameArrows"><h3>If the arrows point to the <b>left</b>, press the <span class='key'>F</span> key.
+                <img src ="http://localhost:8000/arrow1.png" class ="arrow-left"></h3> 
+                <h3>If the arrows point to the<b>right</b>, press the <span class='key'>G</span> key.
+                <img src ="http://localhost:8000/arrow1.png" class ="arrow-right"></h3> 
+                <h3>If the arrows point <b>up</b>, press the <span class='key'>J</span> key.
+                <img src ="http://localhost:8000/arrow1.png" class ="arrow-up"></h3> 
+                <h3>If the arrows point <b>down</b>, press the <span class='key'>N</span> key.
+                <img src ="http://localhost:8000/arrow1.png" class ="arrow-down"></h3>
+                <p>Press <span class='key'>SPACE</span> to continue<p></div>`,
+                `<div class = "frame"><h3>Please always try to respond as quickly and accurately as possible!</h3>
+                    <h3>The experiment begins with a practice block. Press <span class='key'>SPACE</span> to continue</h3></div>`]
         }
     },
     key_forward: ' ',
@@ -309,6 +333,7 @@ var expTrial = {
         else if (["vertical_c2", "vertical_i1"].includes(c)) { return ["n"] }
         else if (["vertical_c1", "vertical_i2"].includes(c)) { return ["j"] }
     },
+    movement_speed: 14,
     data: {
         collect: true,
         task: "expTrial"
@@ -336,12 +361,12 @@ var practiceStart = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function () {
         if (language == "HUN") {
-            return `<h2>Gyakorló blokk</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A kísérlet egy gyakorló blokkal kezdődik.
-            Kérjük, törekedj a minél gyorsabb és pontosabb válaszadásra! Amint készen állsz, nyomj meg egy tetszőleges billentyűt a kezdéshez!</p>`;
+            return `<div class = "frame"><h2>Gyakorló blokk</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A kísérlet egy gyakorló blokkal kezdődik.
+            Kérjük, törekedj a minél gyorsabb és pontosabb válaszadásra! Amint készen állsz, nyomj meg egy tetszőleges billentyűt a kezdéshez!</p></div>`;
         }
         else if (language == "EN") {
-            return `<h2>Practice block</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">The experiment begins with a practice block.
-            Please try to respond as quickly and accurately as possible! When you are ready, press any key to begin!</p>`;
+            return `<div class = "frame"><h2>Practice block</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">The experiment begins with a practice block.
+            Please try to respond as quickly and accurately as possible! When you are ready, press any key to begin!</p></div>`;
         }
     },
     choices: "ALL_KEYS"
@@ -385,12 +410,12 @@ var repeatPractice = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function () {
         if (language == "HUN") {
-            return `<p>Túl sokat hibáztál a gyakorló blokkban. Kérlek nyomd be a <span class="key">SPACE</span> billentyűt,
-            hogy újrakezd a gyakorlást</p>`
+            return `<div class = "frame"><p>Túl sokat hibáztál a gyakorló blokkban. Kérlek nyomd be a <span class="key">SPACE</span> billentyűt,
+            hogy újrakezd a gyakorlást!</p></div>`
         }
         else if (language == "EN") {
-            return `<p>You made too many mistakes in the practice block. Please press the <span class="key">SPACE</span> key
-            to restart the practice</p>`
+            return `<div class = "frame"><p>You made too many mistakes in the practice block. Please, press the <span class="key">SPACE</span> key
+            to restart the practice.</p></div>`
         }
     },
     choices: [' '],
@@ -401,10 +426,12 @@ var practiceEnd = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function () {
         if (language == "HUN") {
-            return `<h2>Gyakorló blokk vége</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A gyakorló blokk véget ért. Most a kísérleti blokk következik. Ha készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p>`
+            return `<div class = "frame"><h2>Gyakorló blokk vége</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">A gyakorló blokk véget ért.
+             Most a kísérleti blokk következik. Ha készen állsz, nyomj le egy tetszőleges billentyűt a kezdéshez!</p></div>`
         }
         else if (language == "EN") {
-            return `<h2>End of practice block</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">The practice block has ended. The experimental block comes next. When you are ready, press any key to begin!</p>`
+            return `<div class = "frame"><h2>End of practice block</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">The practice block has ended. 
+            The experimental block comes next. When you are ready, press any key to begin!</p></div>`
         }
     },
     choices: "ALL_KEYS"
@@ -418,17 +445,17 @@ var blockEnd = {
     stimulus: function () {
         if (language == "HUN") {
             return `
-        <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
+        <div class = "frame"><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
         A kísérletnek ezen szakasza befejeződött, most pihenhetsz kicsit.
-        Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a folytatáshoz!</p>
+        Amennyiben készen állsz, nyomj le egy tetszőleges billentyűt a folytatáshoz!</p></div>
         <p style="font-size: 24px;  position: absolute; top: 40px; right: 80px;">Hátralévő idő: <span id="timer" class="timer">2:00</span></p>
     `
         }
         else if (language == "EN") {
             return `
-        <p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
+        <div class = "frame"><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
         This part of the experiment is complete, you can rest now.
-        When you are ready, press any key to continue!</p>
+        When you are ready, press any key to continue!</p></div>
         <p style="font-size: 24px;  position: absolute; top: 40px; right: 80px;">Time remaining: <span id="timer" class="timer">2:00</span></p>
     `
         }
@@ -463,12 +490,12 @@ var debriefTrial = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function () {
         if (language == "HUN") {
-            return `<h2>Kísérlet vége</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
-            Köszönjük, hogy részt vettél a vizsgálatban!</p>`
+            return `<div class = "frame"><h2>Kísérlet vége</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
+            Köszönjük, hogy részt vettél a vizsgálatban!</p></div>`
         }
         else if (language == "EN") {
-            return `<h2>End of experiment</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
-            Thank you for your participation!</p>`
+            return `<div class = "frame"><h2>End of experiment</h2><p style="text-align: center; max-width: 800px; margin: auto; font-size: 24px">
+            Thank you for your participation!</p></div>`
         }
     },
     choices: "ALL_KEYS"
@@ -478,12 +505,12 @@ function startExperiment() {
     timeline.push(
         preLoadTrial,
         languageTrial,
-        welcomeTrial,
+        //welcomeTrial,
         fullScreenTrial,
-        consentTrial,
-        neptunCodeTrial,
-        genderTrial,
-        ageTrial,
+        //consentTrial,
+        //neptunCodeTrial,
+        //genderTrial,
+        //ageTrial,
         instructionsTrial,
         practiceStart
     )
