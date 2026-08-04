@@ -59,6 +59,10 @@ var languageTrial = {
     prompt: "<h2>Please, pick a language!</h2>",
     choices: [`HUN`, `EN`],
     margin_vertical: '120px',
+    button_html: function (choice) {
+        return `<button class="jspsych-btn" style="margin-inline:256px; font-size:24px; color:black; padding:12px 24px; border:1.4px solid black">` + choice + "</button>"
+
+    },
     data: {
         collect: true
     },
@@ -505,12 +509,12 @@ function startExperiment() {
     timeline.push(
         preLoadTrial,
         languageTrial,
-        //welcomeTrial,
+        welcomeTrial,
         fullScreenTrial,
-        //consentTrial,
-        //neptunCodeTrial,
-        //genderTrial,
-        //ageTrial,
+        consentTrial,
+        neptunCodeTrial,
+        genderTrial,
+        ageTrial,
         instructionsTrial,
         practiceStart
     )
