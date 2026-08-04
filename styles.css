@@ -86,6 +86,14 @@ p {
 
 
 .languageButton {
+    margin-inline: 256px;
+    font-size: 24px;
+    color: black;
+    padding: 12px 24px;
+    border: 1.4px solid black;
+}
+
+.button {
     font-size: 38px;
     font-weight: 500;
     color: black;
@@ -95,5 +103,4 @@ p {
     display: inline-block;
     padding: 15px 20px;
     margin: 30px;
-    margin-inline: 240px;
 }

@@ -102,6 +102,9 @@ var welcomeTrial = {
     choices: function () {
         if (language == "HUN") { return ["Tovább"] }
         else { return ["Continue"] }
+    },
+    button_html: function (choice) {
+        return `<button class="jspsych-btn" style="font-size:20px; color:black; padding:8px 16px; border:1.4px solid black">` + choice + "</button>"
     }
 }
 
@@ -127,6 +130,7 @@ var fullScreenTrial = {
         }
     }
 }
+
 
 var consentTrial = {
     type: jsPsychSurveyMultiChoice,
@@ -230,21 +234,21 @@ var instructionsTrial = {
         if (language == "HUN") {
             return [`<div class = "frame"><h1>Feladat</h1><h3>A képernyőn különböző irányba mutató és mozgó nyilakat fogsz látni.
                 A feladatod az lesz, hogy azon iránynak megfelelő gombot nyomd le a billentyűzeten, 
-                amelyik irányba a nyilak <b>mutatnak<b></h3>
+                amelyik irányba a nyilak <b>mutatnak<b>.</h3>
                 <h2>Vigyázz!</h2>
                 <h3>A nyilak mozgásiránya nem biztos, hogy megegyezik a mutatott iránnyal.</h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
-                `<div class = "frameArrows"><h3> Ha a nyilak <b>balra</b> mutatnak, nyomd meg a <span class ='key'>F</span> billentyűt. 
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
+                `<div class = "frameArrows"><h3> Ha a nyilak <b>balra</b> mutatnak, nyomd meg a <span class ='key'>F</span> billentyűt! 
               <img src ="http://localhost:8000/arrow1.png" class ="arrow-left"></h3> 
-                <h3>Ha a nyilak <b>jobbra</b> mutatnak, nyomd meg a <span class ='key'>G</span> billentyűt. 
+                <h3>Ha a nyilak <b>jobbra</b> mutatnak, nyomd meg a <span class ='key'>G</span> billentyűt!
                 <img src ="http://localhost:8000/arrow1.png" class ="arrow-right"></h3> 
-                <h3>Ha a nyilak <b>felfelé</b> mutatnak, nyomd meg a <span class ='key'>J</span> billentyűt. 
+                <h3>Ha a nyilak <b>felfelé</b> mutatnak, nyomd meg a <span class ='key'>J</span> billentyűt! 
                 <img src ="http://localhost:8000/arrow1.png" class ="arrow-up"></h3> 
-                <h3>Ha a nyilak <b>lefelé</b> mutatnak, nyomd meg a <span class ='key'>N</span> billentyűt. 
+                <h3>Ha a nyilak <b>lefelé</b> mutatnak, nyomd meg a <span class ='key'>N</span> billentyűt! 
                 <img src ="http://localhost:8000/arrow1.png" class ="arrow-down"></h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz.</p></div>`,
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
                 `<div class = "frame"><h3>Kérlek mindig igyekezz a minél gyorsabb és pontosabb válaszadásra.</h3>
-                    <p> A kísérlet egy gyakorló blokkal kezdődik. Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz.</p></div>`]
+                    <p> A kísérlet egy gyakorló blokkal kezdődik. Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`]
         }
         else if (language == "EN") {
             return [`<div class = "frame"><h1>Task</h1><h3>You will see arrows on the screen pointing and moving in different directions.
@@ -263,7 +267,7 @@ var instructionsTrial = {
                 <img src ="http://localhost:8000/arrow1.png" class ="arrow-down"></h3>
                 <p>Press <span class='key'>SPACE</span> to continue<p></div>`,
                 `<div class = "frame"><h3>Please always try to respond as quickly and accurately as possible!</h3>
-                    <h3>The experiment begins with a practice block. Press <span class='key'>SPACE</span> to continue</h3></div>`]
+                    <h3>The experiment begins with a practice block. Press <span class='key'>SPACE</span> to continue!</h3></div>`]
         }
     },
     key_forward: ' ',
