@@ -1,10 +1,18 @@
 var jsPsych = initJsPsych({
-    on_finish: function () {
-        jsPsych.data.displayData();
-        jsPsych.data.get().filter({ collect: true }).ignore(['trial_type', 'participant', 'collect']).localSave('csv', `ROK_participant_${participantId}.csv`)
+     on_finish: () => {
+        try {
+        jatos.endStudyAndRedirect(
+                    "link here", 
+            jsPsych.data.get().csv()
+                );
+    }catch{
+            jsPsych.data.displayData();
+            jsPsych.data.get().filter({ collect: true }).ignore(['participant', 'collect']).localSave('csv', `ROK_participant_${participantId}.csv`)
+        }
     }
 });
-
+const running_jatos = (typeof jatos !== `undefined`)
+console.log('Running in JATOS: ', running_jatos);
 var participantId = jsPsych.randomization.randomID(2)
 
 jsPsych.data.addProperties({ participant: participantId })
@@ -15,11 +23,10 @@ var practicePassed = false;
 
 
 async function loadExperiment() {
-    var practiceResponse = await fetch(`http://localhost:8000/sample_trials/p_practice_sample.json`)
-    practiceTrials = await practiceResponse.json();
+    
+    practiceTrials = practice_trials
 
-    var response = await fetch(`http://localhost:8000/sample_trials/p_experiment_sample.json`);
-    experimentalTrials = await response.json();
+    experimentalTrials = experimental_blocksets[Math.floor(Math.random() * experimental_blocksets.length)];
 
 
     startExperiment();
@@ -34,7 +41,7 @@ var language;
 
 var preLoadTrial = {
     type: jsPsychPreload,
-    images: ["http://localhost:8000/arrow1.png"],
+    images: ["arrow1.png"],
     auto_preload: true
 }
 
@@ -55,7 +62,7 @@ if (debug) {
 var language;
 var languageTrial = {
     type: jsPsychImageButtonResponse,
-    stimulus: "http://localhost:8000/flags.png",
+    stimulus: "flags.png",
     prompt: "<h2>Please choose a language!</h2>",
     choices: [`HUN`, `EN`],
     margin_vertical: '120px',
@@ -240,11 +247,11 @@ var instructionsTrial = {
                 <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
                 `<div class="frame"><h3>Amikor a nyilak által mutatott irány és a mozgás iránya megegyezik:</h3>
                 <div class="animFrame">
-                <img src="http://localhost:8000/arrow1.png" class="animCongruent">
+                <img src="arrow1.png" class="animCongruent">
                 </div>
                 <h3>Amikor a nyilak által mutatott irány és a mozgás iránya ellentétes:</h3>
                 <div class="animFrame">
-                <img src="http://localhost:8000/arrow1.png" class="animIncongruent">
+                <img src="arrow1.png" class="animIncongruent">
                 </div>
                 <h3>Mindig a <i>mozgás</i> irányára reagálj!</h3>
                 <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div></div>`,
@@ -266,11 +273,11 @@ var instructionsTrial = {
                 <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
                 `<div class="frame"><h3>When the arrows point and move the same way:</h3>
                 <div class="animFrame">
-                <img src="http://localhost:8000/arrow1.png" class="animCongruent">
+                <img src="arrow1.png" class="animCongruent">
                 </div>
                 <h3>When they point one way and move the other:</h3>
                 <div class="animFrame">
-                <img src="http://localhost:8000/arrow1.png" class="animIncongruent">
+                <img src="arrow1.png" class="animIncongruent">
                 </div>
                 <h3>Always respond to the direction they <i>move</i>!</h3>
                 <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
@@ -632,5 +639,13 @@ function startExperiment() {
 
 }
 
-
-loadExperiment()
+try{
+    jatos.onLoad(function() {
+        console.log("Jatos loaded, starting experiment...")
+        loadExperiment()
+    }
+    )
+}catch(error){
+    console.log("Jatos was not found, starting experiment...")
+    loadExperiment()
+}
