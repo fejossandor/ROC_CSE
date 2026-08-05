@@ -1,7 +1,6 @@
 var jsPsych = initJsPsych({
      on_finish: () => {
-        try {
-        jatos.endStudyAndRedirect(
+        try {jatos.endStudyAndRedirect(
                     "link here", 
             jsPsych.data.get().csv()
                 );
@@ -33,7 +32,7 @@ async function loadExperiment() {
 }
 
 
-var debug = new URLSearchParams(window.location.search).get('debug') === '1'
+
 
 var timeline = []
 
@@ -642,10 +641,12 @@ function startExperiment() {
 try{
     jatos.onLoad(function() {
         console.log("Jatos loaded, starting experiment...")
+         var debug = jatos.urlQueryParameters.debug === "1" ? 1 : 0;
         loadExperiment()
     }
     )
 }catch(error){
     console.log("Jatos was not found, starting experiment...")
+    var debug = new URLSearchParams(window.location.search).get('debug') === '1'
     loadExperiment()
 }
