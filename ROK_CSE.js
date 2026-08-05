@@ -56,7 +56,7 @@ var language;
 var languageTrial = {
     type: jsPsychImageButtonResponse,
     stimulus: "http://localhost:8000/flags.png",
-    prompt: "<h2>Please, pick a language!</h2>",
+    prompt: "<h2>Please choose a language!</h2>",
     choices: [`HUN`, `EN`],
     margin_vertical: '120px',
     button_html: function (choice) {
@@ -234,40 +234,54 @@ var instructionsTrial = {
         if (language == "HUN") {
             return [`<div class = "frame"><h1>Feladat</h1><h3>A képernyőn különböző irányba mutató és mozgó nyilakat fogsz látni.
                 A feladatod az lesz, hogy azon iránynak megfelelő gombot nyomd le a billentyűzeten, 
-                amelyik irányba a nyilak <b>mutatnak<b>.</h3>
+                amelyik irányba a nyilak <i>mozognak</i>.</h3>
                 <h2>Vigyázz!</h2>
                 <h3>A nyilak mozgásiránya nem biztos, hogy megegyezik a mutatott iránnyal.</h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
-                `<div class = "frameArrows"><h3> Ha a nyilak <b>balra</b> mutatnak, nyomd meg a <span class ='key'>F</span> billentyűt! 
-              <img src ="http://localhost:8000/arrow1.png" class ="arrow-left"></h3> 
-                <h3>Ha a nyilak <b>jobbra</b> mutatnak, nyomd meg a <span class ='key'>G</span> billentyűt!
-                <img src ="http://localhost:8000/arrow1.png" class ="arrow-right"></h3> 
-                <h3>Ha a nyilak <b>felfelé</b> mutatnak, nyomd meg a <span class ='key'>J</span> billentyűt! 
-                <img src ="http://localhost:8000/arrow1.png" class ="arrow-up"></h3> 
-                <h3>Ha a nyilak <b>lefelé</b> mutatnak, nyomd meg a <span class ='key'>N</span> billentyűt! 
-                <img src ="http://localhost:8000/arrow1.png" class ="arrow-down"></h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
+                `<div class="frame"><h3>Amikor a nyilak által mutatott irány és a mozgás iránya megegyezik:</h3>
+                <div class="animFrame">
+                <img src="http://localhost:8000/arrow1.png" class="animCongruent">
+                </div>
+                <h3>Amikor a nyilak által mutatott irány és a mozgás iránya ellentétes:</h3>
+                <div class="animFrame">
+                <img src="http://localhost:8000/arrow1.png" class="animIncongruent">
+                </div>
+                <h3>Mindig a <i>mozgás</i> irányára reagálj!</h3>
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div></div>`,
+                `<div class = "frame"><h3> Ha a nyilak <b>balra</b> mozognak, nyomd meg az <span class ='key'>A</span> billentyűt! </h3> 
+                <h3>Ha a nyilak <b>jobbra</b> mozognak, nyomd meg a <span class ='key'>K</span> billentyűt!</h3> 
+                <h3>Ha a nyilak <b>felfelé</b> mozognak, nyomd meg az <span class ='key'>E</span> billentyűt! </h3> 
+                <h3>Ha a nyilak <b>lefelé</b> mozognak, nyomd meg a <span class ='key'>N</span> billentyűt! </h3>
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
                 `<div class = "frame"><h3>Kérlek mindig igyekezz a minél gyorsabb és pontosabb válaszadásra.</h3>
-                    <p> A kísérlet egy gyakorló blokkal kezdődik. Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`]
+                    <h3> A kísérlet egy gyakorló blokkal kezdődik.</h3>
+                    <p> Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`]
         }
         else if (language == "EN") {
             return [`<div class = "frame"><h1>Task</h1><h3>You will see arrows on the screen pointing and moving in different directions.
                 Your task is to press the key corresponding to the direction the arrows 
-                are <b>pointing</b>.</h3>
+                are <i>moving</i>.</h3>
                 <h2>Be careful!</h2>
                 <h3>The direction the arrows move in may not match the direction in which they point.</h3>
                 <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
-                `<div class = "frameArrows"><h3>If the arrows point to the <b>left</b>, press the <span class='key'>F</span> key.
-                <img src ="http://localhost:8000/arrow1.png" class ="arrow-left"></h3> 
-                <h3>If the arrows point to the<b>right</b>, press the <span class='key'>G</span> key.
-                <img src ="http://localhost:8000/arrow1.png" class ="arrow-right"></h3> 
-                <h3>If the arrows point <b>up</b>, press the <span class='key'>J</span> key.
-                <img src ="http://localhost:8000/arrow1.png" class ="arrow-up"></h3> 
-                <h3>If the arrows point <b>down</b>, press the <span class='key'>N</span> key.
-                <img src ="http://localhost:8000/arrow1.png" class ="arrow-down"></h3>
+                `<div class="frame"><h3>When the arrows point and move the same way:</h3>
+                <div class="animFrame">
+                <img src="http://localhost:8000/arrow1.png" class="animCongruent">
+                </div>
+                <h3>When they point one way and move the other:</h3>
+                <div class="animFrame">
+                <img src="http://localhost:8000/arrow1.png" class="animIncongruent">
+                </div>
+                <h3>Always respond to the direction they <i>move</i>!</h3>
+                <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
+                `<div class = "frame"><h3>If the arrows are moving to the <i>left</i>, press the <span class='key'>A</span> key.</h3> 
+                <h3>If the arrows are moving to the<i>right</i>, press the <span class='key'>K</span> key.</h3> 
+                <h3>If the arrows are moving <i>upwards</i>, press the <span class='key'>E</span> key.</h3> 
+                <h3>If the arrows are moving <i>downwards</i>, press the <span class='key'>N</span> key.</h3>
                 <p>Press <span class='key'>SPACE</span> to continue<p></div>`,
                 `<div class = "frame"><h3>Please always try to respond as quickly and accurately as possible!</h3>
-                    <h3>The experiment begins with a practice block. Press <span class='key'>SPACE</span> to continue!</h3></div>`]
+                    <h3>The experiment begins with a practice block.</h3>
+                    <p> Press <span class='key'>SPACE</span> to continue</p></div>`]
         }
     },
     key_forward: ' ',
@@ -287,13 +301,14 @@ var fixationTrial = {
 var expTrial = {
     type: jsPsychRok,
     stimulus_type: 4,
-    oob_size: 5,
+    oob_size: 7,
+    number_of_oobs: 40,
     coherence_movement: 60,
     trial_duration: trialDuration,
     stimulus_image: preLoadTrial.images,
     background_color: "white",
     oob_color: "black",
-    choices: ['f', 'g', 'j', 'n'],
+    choices: ['a', 'e', 'n', 'k'],
     coherence_orientation: function () {
         var c = jsPsych.evaluateTimelineVariable("condition");
         if (["horizontal_c1", "horizontal_c2", "vertical_c1", "vertical_c2"].includes(c)) {
@@ -336,12 +351,12 @@ var expTrial = {
     },
     correct_choice: function () {
         var c = jsPsych.evaluateTimelineVariable("condition");
-        if (["horizontal_c2", "horizontal_i2"].includes(c)) { return ["f"] }
-        else if (["horizontal_c1", "horizontal_i1"].includes(c)) { return ["g"] }
+        if (["horizontal_c2", "horizontal_i2"].includes(c)) { return ["a"] }
+        else if (["horizontal_c1", "horizontal_i1"].includes(c)) { return ["k"] }
         else if (["vertical_c2", "vertical_i2"].includes(c)) { return ["n"] }
-        else if (["vertical_c1", "vertical_i1"].includes(c)) { return ["j"] }
+        else if (["vertical_c1", "vertical_i1"].includes(c)) { return ["e"] }
     },
-    movement_speed: 14,
+    movement_speed: 9,
     data: {
         collect: true,
         task: "expTrial"
@@ -361,6 +376,7 @@ var expTrial = {
         data.id = jsPsych.evaluateTimelineVariable("id");
         console.log(data.key_press)
         console.log(data.correct_choice)
+        console.log(data.congruency)
     }
 };
 
@@ -590,10 +606,10 @@ function startExperiment() {
             type: jsPsychHtmlKeyboardResponse,
             stimulus: function () {
                 if (language == "HUN") {
-                    return `<h1>${j + 1}. Blokk kezdődik</h1>`
+                    return `<div class="frame"><h1>${j + 1}. Blokk kezdődik</h1></div>`
                 }
                 else if (language == "EN") {
-                    return `<h1>Block ${j + 1} begins</h1>`
+                    return `<div class="frame"><h1>Block ${j + 1} begins</h1></div>`
                 }
             },
             trial_duration: 2000,
