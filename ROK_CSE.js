@@ -336,10 +336,10 @@ var expTrial = {
     },
     correct_choice: function () {
         var c = jsPsych.evaluateTimelineVariable("condition");
-        if (["horizontal_c2", "horizontal_i1"].includes(c)) { return ["f"] }
-        else if (["horizontal_c1", "horizontal_i2"].includes(c)) { return ["g"] }
-        else if (["vertical_c2", "vertical_i1"].includes(c)) { return ["n"] }
-        else if (["vertical_c1", "vertical_i2"].includes(c)) { return ["j"] }
+        if (["horizontal_c2", "horizontal_i2"].includes(c)) { return ["f"] }
+        else if (["horizontal_c1", "horizontal_i1"].includes(c)) { return ["g"] }
+        else if (["vertical_c2", "vertical_i2"].includes(c)) { return ["n"] }
+        else if (["vertical_c1", "vertical_i1"].includes(c)) { return ["j"] }
     },
     movement_speed: 14,
     data: {
