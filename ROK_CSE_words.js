@@ -45,6 +45,17 @@ var preLoadTrial = {
     auto_preload: true
 }
 
+var imgLe = preLoadTrial.images[0];
+var imgFel = preLoadTrial.images[1];
+var imgJobb = preLoadTrial.images[2];
+var imgBal = preLoadTrial.images[3];
+
+var imgUP = preLoadTrial.images[4];
+var imgDOWN = preLoadTrial.images[5];
+var imgRIGHT = preLoadTrial.images[6];
+var imgLEFT = preLoadTrial.images[7];
+
+
 var trialDuration = 1500;
 var fixationCrossDuration = 500;
 var fixationTrialDuration = 650;
@@ -247,11 +258,11 @@ var instructionsTrial = {
                 <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
                 `<div class="frame"><h3>Amikor a nyilak által mutatott irány és a mozgás iránya megegyezik:</h3>
                 <div class="animFrame">
-                <img src="http://localhost:8000/arrow1.png" class="animCongruent">
+                <img src="http://localhost:8000/jobb.png" class="animCongruent">
                 </div>
                 <h3>Amikor a nyilak által mutatott irány és a mozgás iránya ellentétes:</h3>
                 <div class="animFrame">
-                <img src="http://localhost:8000/arrow1.png" class="animIncongruent">
+                <img src="http://localhost:8000/jobb.png" class="animIncongruent">
                 </div>
                 <h3>Mindig a <i>mozgás</i> irányára reagálj!</h3>
                 <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div></div>`,
@@ -315,31 +326,31 @@ var expTrial = {
     stimulus_image: function () {
         var c = jsPsych.evaluateTimelineVariable("condition");
         if (language == "HUN") {
-            if (["vertical_c1", "vertical_i2"].includes(c)) {
-                return preLoadTrial.images[0]
+            if (["vertical_c1", "vertical_i1"].includes(c)) {
+                return imgLe
             }
-            else if (["vertical_c2", "vertical_i1"].includes(c)) {
-                return preLoadTrial.images[1]
+            else if (["vertical_c2", "vertical_i2"].includes(c)) {
+                return imgFel
             }
-            else if (["horizontal_c1", "horizontal_i2"].includes(c)) {
-                return preLoadTrial.images[2]
+            else if (["horizontal_c1", "horizontal_i1"].includes(c)) {
+                return imgJobb
             }
-            else if (["horizontal_c2", "horizontal_i1"].includes(c)) {
-                return preLoadTrial.images[3]
+            else if (["horizontal_c2", "horizontal_i2"].includes(c)) {
+                return imgBal
             }
         }
         else if (language == "EN") {
-            if (["vertical_c1", "vertical_i2"].includes(c)) {
-                return preLoadTrial.images[4]
+            if (["vertical_c1", "vertical_i1"].includes(c)) {
+                return imgDOWN
             }
-            else if (["vertical_c2", "vertical_i1"].includes(c)) {
-                return preLoadTrial.images[5]
+            else if (["vertical_c2", "vertical_i2"].includes(c)) {
+                return imgUP
             }
-            else if (["horizontal_c1", "horizontal_i2"].includes(c)) {
-                return preLoadTrial.images[6]
+            else if (["horizontal_c1", "horizontal_i1"].includes(c)) {
+                return imgRIGHT
             }
-            else if (["horizontal_c2", "horizontal_i1"].includes(c)) {
-                return preLoadTrial.images[7]
+            else if (["horizontal_c2", "horizontal_i2"].includes(c)) {
+                return imgLEFT
             }
 
         }
@@ -350,53 +361,24 @@ var expTrial = {
     choices: ['a', 'e', 'n', 'k'],
     aperture_height: 500,
     aperture_width: 800,
-    /*coherence_orientation: function () {
-        var c = jsPsych.evaluateTimelineVariable("condition");
-        if (["horizontal_c1", "horizontal_c2", "vertical_c1", "vertical_c2"].includes(c)) {
-            return 100;
-        }
-        else if (["horizontal_i1", "horizontal_i2", "vertical_i1", "vertical_i2"].includes(c)) {
-            return 0;
-        }
-    }*/coherence_orientation: 100,
+    coherence_orientation: 100,
 
-    /*coherence_orientation_opposite: function () {
-        var c = jsPsych.evaluateTimelineVariable("condition");
-        if (["horizontal_c1", "horizontal_c2", "vertical_c1", "vertical_c2"].includes(c)) {
-            return 0;
-        }
-        else if (["horizontal_i1", "horizontal_i2", "vertical_i1", "vertical_i2"].includes(c)) {
-            return 100;
-        }
-    }*/coherence_orientation_opposite: 0,
+    coherence_orientation_opposite: 0,
     coherence_movement_opposite: 0,
     coherent_movement_direction: function () {
         var c = jsPsych.evaluateTimelineVariable("condition");
-        if (["horizontal_c1", "horizontal_i1"].includes(c)) { return 0 }
-        else if (["horizontal_c2", "horizontal_i2"].includes(c)) { return 180 }
-        else if (["vertical_c1", "vertical_i1"].includes(c)) { return 90 }
-        else if (["vertical_c2", "vertical_i2"].includes(c)) { return 270 }
+        if (["horizontal_c1", "horizontal_i2"].includes(c)) { return 0 }
+        else if (["horizontal_c2", "horizontal_i1"].includes(c)) { return 180 }
+        else if (["vertical_c1", "vertical_i2"].includes(c)) { return 270 }
+        else if (["vertical_c2", "vertical_i1"].includes(c)) { return 90 }
     },
-    /*coherent_orientation: function () {
-        var c = jsPsych.evaluateTimelineVariable("condition");
-        if (["horizontal_c1", "horizontal_i1"].includes(c)) { return 0 }
-        else if (["horizontal_c2", "horizontal_i2"].includes(c)) { return 180 }
-        else if (["vertical_c1", "vertical_i1"].includes(c)) { return 90 }
-        else if (["vertical_c2", "vertical_i2"].includes(c)) { return 270 }
-
-        if (["horizontal_c1", "horizontal_c2", "vertical_c1", "vertical_c2"].includes(c)) {
-            return dir;
-        }
-        else if (["horizontal_i1", "horizontal_i2", "vertical_i1", "vertical_i2"].includes(c)) {
-            return 180 - dir;
-}}*/
     coherent_orientation: 0,
     correct_choice: function () {
         var c = jsPsych.evaluateTimelineVariable("condition");
-        if (["horizontal_c2", "horizontal_i2"].includes(c)) { return ["a"] }
-        else if (["horizontal_c1", "horizontal_i1"].includes(c)) { return ["k"] }
-        else if (["vertical_c2", "vertical_i2"].includes(c)) { return ["n"] }
-        else if (["vertical_c1", "vertical_i1"].includes(c)) { return ["e"] }
+        if (["horizontal_c1", "horizontal_i2"].includes(c)) { return ["k"] }
+        else if (["horizontal_c2", "horizontal_i1"].includes(c)) { return ["a"] }
+        else if (["vertical_c1", "vertical_i2"].includes(c)) { return ["n"] }
+        else if (["vertical_c2", "vertical_i1"].includes(c)) { return ["e"] }
     },
     movement_speed: 9,
     data: {
@@ -416,9 +398,11 @@ var expTrial = {
         data.correct_choice = `${data.correct_choice}`
         data.isCorrect = data.key_press == data.correct_choice;
         data.id = jsPsych.evaluateTimelineVariable("id");
+        data.condition = jsPsych.evaluateTimelineVariable("condition");
         console.log(data.key_press)
         console.log(data.correct_choice)
         console.log(data.congruency)
+        console.log(data.condition)
     }
 };
 
@@ -577,7 +561,7 @@ function startExperiment() {
         //neptunCodeTrial,
         //genderTrial,
         //ageTrial,
-        //instructionsTrial,
+        instructionsTrial,
         practiceStart
     )
 
