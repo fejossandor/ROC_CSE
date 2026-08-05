@@ -642,11 +642,14 @@ try{
     jatos.onLoad(function() {
         console.log("Jatos loaded, starting experiment...")
          var debug = jatos.urlQueryParameters.debug === "1" ? 1 : 0;
+         console.log("debug: " + debug)
         loadExperiment()
     }
     )
 }catch(error){
+    console.log(error)
     console.log("Jatos was not found, starting experiment...")
     var debug = new URLSearchParams(window.location.search).get('debug') === '1'
+    console.log
     loadExperiment()
 }
