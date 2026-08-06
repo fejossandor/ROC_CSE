@@ -1,10 +1,18 @@
 var jsPsych = initJsPsych({
-    on_finish: function () {
-        jsPsych.data.displayData();
-        jsPsych.data.get().filter({ collect: true }).ignore(['trial_type', 'participant', 'collect']).localSave('csv', `ROK_participant_${participantId}.csv`)
+    on_finish: () => {
+        try {
+            jatos.endStudyAndRedirect(
+                "link here",
+                jsPsych.data.get().csv()
+            );
+        } catch {
+            jsPsych.data.displayData();
+            jsPsych.data.get().filter({ collect: true }).ignore(['participant', 'collect']).localSave('csv', `ROK_participant_${participantId}.csv`)
+        }
     }
 });
-
+const running_jatos = (typeof jatos !== `undefined`)
+console.log('Running in JATOS: ', running_jatos);
 var participantId = jsPsych.randomization.randomID(2)
 
 jsPsych.data.addProperties({ participant: participantId })
@@ -15,11 +23,10 @@ var practicePassed = false;
 
 
 async function loadExperiment() {
-    var practiceResponse = await fetch(`http://localhost:8000/sample_trials/p_practice_sample.json`)
-    practiceTrials = await practiceResponse.json();
 
-    var response = await fetch(`http://localhost:8000/sample_trials/p_experiment_sample.json`);
-    experimentalTrials = await response.json();
+    practiceTrials = practice_trials
+
+    experimentalTrials = experimental_blocksets[Math.floor(Math.random() * experimental_blocksets.length)];
 
 
     startExperiment();
@@ -34,14 +41,14 @@ var language;
 
 var preLoadTrial = {
     type: jsPsychPreload,
-    images: ["http://localhost:8000/le.png",
-        "http://localhost:8000/fel.png",
-        "http://localhost:8000/jobb.png",
-        "http://localhost:8000/bal.png",
-        "http://localhost:8000/UP.png",
-        "http://localhost:8000/DOWN.png",
-        "http://localhost:8000/RIGHT.png",
-        "http://localhost:8000/LEFT.png"],
+    images: ["le.png",
+        "fel.png",
+        "jobb.png",
+        "bal.png",
+        "UP.png",
+        "DOWN.png",
+        "RIGHT.png",
+        "LEFT.png"],
     auto_preload: true
 }
 
@@ -73,7 +80,7 @@ if (debug) {
 var language;
 var languageTrial = {
     type: jsPsychImageButtonResponse,
-    stimulus: "http://localhost:8000/flags.png",
+    stimulus: "flags.png",
     prompt: "<h2>Please choose a language!</h2>",
     choices: [`HUN`, `EN`],
     margin_vertical: '120px',
@@ -110,7 +117,7 @@ var welcomeTrial = {
         else if (language == "EN") {
             return `<div class = "frame"><h2>Welcome to the experiment of the <b>Metascience Lab</b>!</h2>
     <p>You are participating in a scientific experiment carried out under the supervision of <b>Miklós Bognár</b>, researcher at the Department of Affective Psychology at Eötvös Loránd University.</p>
-    <p>The aim of the study is to investigate the mechanisms of cognitive control</p>
+    <p>The aim of the study is to investigate the mechanisms of cognitive control.</p>
     <h3>Participation</h3>
     <p>Participation is voluntary. You can withdraw from participation at any point of the experiment without having to provide any reason for your actions.
     If you have any questions or suggestions concerning the experiment, please write an email to the following address: <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a></p></div>
@@ -250,52 +257,54 @@ var instructionsTrial = {
     type: jsPsychInstructions,
     pages: function () {
         if (language == "HUN") {
-            return [`<div class = "frame"><h1>Feladat</h1><h3>A képernyőn különböző irányba mutató és mozgó nyilakat fogsz látni.
+            return [`<div class = "frame"><h1>Feladat</h1><h3>A képernyőn irányokat jelölő szavak („BAL”, „JOBB”, „FEL”, „LE”) fognak megjelenni,
+                 amelyek különböző irányokba mozognak.
                 A feladatod az lesz, hogy azon iránynak megfelelő gombot nyomd le a billentyűzeten, 
-                amelyik irányba a nyilak <i>mozognak</i>.</h3>
+                amelyik irányba a szavak <i>mozognak</i>.</h3>
                 <h2>Vigyázz!</h2>
-                <h3>A nyilak mozgásiránya nem biztos, hogy megegyezik a mutatott iránnyal.</h3>
+                <h3>A szavak mozgásiránya nem biztos, hogy megegyezik a szavak által jelölt iránnyal.</h3>
                 <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
-                `<div class="frame"><h3>Amikor a nyilak által mutatott irány és a mozgás iránya megegyezik:</h3>
-                <div class="animFrame">
-                <img src="http://localhost:8000/jobb.png" class="animCongruent">
+                `<div class="frame"><h3>Amikor a szó által jelölt irány és a mozgás iránya megegyezik:</h3>
+                <div class="animFrameWord">
+                <img src="jobb.png" class="animCongruentWord">
                 </div>
-                <h3>Amikor a nyilak által mutatott irány és a mozgás iránya ellentétes:</h3>
-                <div class="animFrame">
-                <img src="http://localhost:8000/jobb.png" class="animIncongruent">
+                <h3>Amikor a szó által jelölt irány és a mozgás iránya ellentétes:</h3>
+                <div class="animFrameWord">
+                <img src="jobb.png" class="animIncongruentWord">
                 </div>
                 <h3>Mindig a <i>mozgás</i> irányára reagálj!</h3>
                 <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div></div>`,
-                `<div class = "frame"><h3> Ha a nyilak <b>balra</b> mozognak, nyomd meg az <span class ='key'>A</span> billentyűt! </h3> 
-                <h3>Ha a nyilak <b>jobbra</b> mozognak, nyomd meg a <span class ='key'>K</span> billentyűt!</h3> 
-                <h3>Ha a nyilak <b>felfelé</b> mozognak, nyomd meg az <span class ='key'>E</span> billentyűt! </h3> 
-                <h3>Ha a nyilak <b>lefelé</b> mozognak, nyomd meg a <span class ='key'>N</span> billentyűt! </h3>
+                `<div class = "frame"><h3> Ha a szavak <i>balra</i> mozognak, nyomd meg az <span class ='key'>A</span> billentyűt! </h3> 
+                <h3>Ha a szavak <i>jobbra</i> mozognak, nyomd meg a <span class ='key'>K</span> billentyűt!</h3> 
+                <h3>Ha a szavak <i>felfelé</i> mozognak, nyomd meg az <span class ='key'>E</span> billentyűt! </h3> 
+                <h3>Ha a szavak <i>lefelé</i> mozognak, nyomd meg a <span class ='key'>N</span> billentyűt! </h3>
                 <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
                 `<div class = "frame"><h3>Kérlek mindig igyekezz a minél gyorsabb és pontosabb válaszadásra.</h3>
                     <h3> A kísérlet egy gyakorló blokkal kezdődik.</h3>
                     <p> Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`]
         }
         else if (language == "EN") {
-            return [`<div class = "frame"><h1>Task</h1><h3>You will see arrows on the screen pointing and moving in different directions.
-                Your task is to press the key corresponding to the direction the arrows 
+            return [`<div class = "frame"><h1>Task</h1><h3>You will see words on the screen indicating certain
+                directions ("LEFT","RIGHT", "UP", "DOWN"). The words will also be moving in different directions.
+                Your task is to press the key corresponding to the direction the words 
                 are <i>moving</i>.</h3>
                 <h2>Be careful!</h2>
-                <h3>The direction the arrows move in may not match the direction in which they point.</h3>
+                <h3>The direction the words move in may not match the direction they indicate.</h3>
                 <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
-                `<div class="frame"><h3>When the arrows point and move the same way:</h3>
-                <div class="animFrame">
-                <img src="http://localhost:8000/arrow1.png" class="animCongruent">
+                `<div class="frame"><h3>When the indicated direction and matches the direction of the movement:</h3>
+                <div class="animFrameWord">
+                <img src="RIGHT.png" class="animCongruentWord">
                 </div>
-                <h3>When they point one way and move the other:</h3>
-                <div class="animFrame">
-                <img src="http://localhost:8000/arrow1.png" class="animIncongruent">
+                <h3>When the indicated direction and the movement direction differ:</h3>
+                <div class="animFrameWord">
+                <img src="RIGHT.png" class="animIncongruentWord">
                 </div>
-                <h3>Always respond to the direction they <i>move</i>!</h3>
+                <h3>Always respond to the direction of the <i>movement</i>!</h3>
                 <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
-                `<div class = "frame"><h3>If the arrows are moving to the <i>left</i>, press the <span class='key'>A</span> key.</h3> 
-                <h3>If the arrows are moving to the<i>right</i>, press the <span class='key'>K</span> key.</h3> 
-                <h3>If the arrows are moving <i>upwards</i>, press the <span class='key'>E</span> key.</h3> 
-                <h3>If the arrows are moving <i>downwards</i>, press the <span class='key'>N</span> key.</h3>
+                `<div class = "frame"><h3>If the words are moving to the <i>left</i>, press the <span class='key'>A</span> key.</h3> 
+                <h3>If the words are moving to the <i>right</i>, press the <span class='key'>K</span> key.</h3> 
+                <h3>If the words are moving <i>upwards</i>, press the <span class='key'>E</span> key.</h3> 
+                <h3>If the words are moving <i>downwards</i>, press the <span class='key'>N</span> key.</h3>
                 <p>Press <span class='key'>SPACE</span> to continue<p></div>`,
                 `<div class = "frame"><h3>Please always try to respond as quickly and accurately as possible!</h3>
                     <h3>The experiment begins with a practice block.</h3>
@@ -319,7 +328,10 @@ var fixationTrial = {
 var expTrial = {
     type: jsPsychRok,
     stimulus_type: 4,
-    oob_size: 10,
+    oob_size: function () {
+        if (language == "HUN") { return 20 }
+        else if (language == "EN") { return 20 }
+    },
     number_of_oobs: 40,
     coherence_movement: 80,
     trial_duration: trialDuration,
@@ -555,7 +567,7 @@ function startExperiment() {
     timeline.push(
         preLoadTrial,
         languageTrial,
-        //welcomeTrial,
+        welcomeTrial,
         //fullScreenTrial,
         //consentTrial,
         //neptunCodeTrial,
@@ -660,4 +672,13 @@ function startExperiment() {
 }
 
 
-loadExperiment()
+try {
+    jatos.onLoad(function () {
+        console.log("Jatos loaded, starting experiment...")
+        loadExperiment()
+    }
+    )
+} catch (error) {
+    console.log("Jatos was not found, starting experiment...")
+    loadExperiment()
+}

@@ -135,3 +135,53 @@ p {
         left: -50px;
     }
 }
+
+
+.animFrameWord {
+    width: 300px;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+    border: 2px solid #333;
+    border-radius: 6px;
+    margin: 20px auto;
+}
+
+/* arrows inside it */
+.animFrameWord img {
+    position: relative;
+    height: 80px;
+
+}
+
+.animCongruentWord {
+    top: 10px;
+    transform: rotate(0deg);
+    animation: moveRightWord 2.5s linear infinite;
+}
+
+.animIncongruentWord {
+    top: 10px;
+    transform: rotate(0deg);
+    animation: moveLeftWord 2.5s linear infinite;
+}
+
+@keyframes moveRightWord {
+    from {
+        left: -180px;
+    }
+
+    to {
+        left: 270px;
+    }
+}
+
+@keyframes moveLeftWord {
+    from {
+        left: 270px;
+    }
+
+    to {
+        left: -180px;
+    }
+}
