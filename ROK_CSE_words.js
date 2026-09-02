@@ -333,7 +333,7 @@ var expTrial = {
         else if (language == "EN") { return 20 }
     },
     number_of_oobs: 40,
-    coherence_movement: 80,
+    coherence_movement: 60,
     trial_duration: trialDuration,
     stimulus_image: function () {
         var c = jsPsych.evaluateTimelineVariable("condition");
@@ -568,11 +568,11 @@ function startExperiment() {
         preLoadTrial,
         languageTrial,
         welcomeTrial,
-        //fullScreenTrial,
-        //consentTrial,
-        //neptunCodeTrial,
-        //genderTrial,
-        //ageTrial,
+        fullScreenTrial,
+        consentTrial,
+        neptunCodeTrial,
+        genderTrial,
+        ageTrial,
         instructionsTrial,
         practiceStart
     )
