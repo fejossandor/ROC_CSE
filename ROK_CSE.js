@@ -1,10 +1,11 @@
 var jsPsych = initJsPsych({
-     on_finish: () => {
-        try {jatos.endStudyAndRedirect(
-                    "link here", 
-            jsPsych.data.get().csv()
-                );
-    }catch{
+    on_finish: () => {
+        try {
+            jatos.endStudyAndRedirect(
+                "link here",
+                jsPsych.data.get().csv()
+            );
+        } catch {
             jsPsych.data.displayData();
             jsPsych.data.get().filter({ collect: true }).ignore(['participant', 'collect']).localSave('csv', `ROK_participant_${participantId}.csv`)
         }
@@ -22,7 +23,7 @@ var practicePassed = false;
 
 
 async function loadExperiment() {
-    
+
     practiceTrials = practice_trials
 
     experimentalTrials = experimental_blocksets[Math.floor(Math.random() * experimental_blocksets.length)];
@@ -98,10 +99,10 @@ var welcomeTrial = {
         else if (language == "EN") {
             return `<div class = "frame"><h2>Welcome to the experiment of the <b>Metascience Lab</b>!</h2>
     <p>You are participating in a scientific experiment carried out under the supervision of <b>Miklós Bognár</b>, researcher at the Department of Affective Psychology at Eötvös Loránd University.</p>
-    <p>The aim of the study is to investigate the mechanisms of cognitive control</p>
+    <p>The aim of the study is to investigate the mechanisms of cognitive control.</p>
     <h3>Participation</h3>
     <p>Participation is voluntary. You can withdraw from participation at any point of the experiment without having to provide any reason for your actions.
-    If you have any questions or suggestions concerning the experiment, please write an email to the following address: <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a></p></div>
+    If you have any questions or suggestions concerning the experiment, please write an email to the following address: <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a>.</p></div>
   `
         }
     },
@@ -120,7 +121,7 @@ var fullScreenTrial = {
     message: function () {
         if (language == "HUN") {
             return `<div class = "frame"><p><b>A kísérlet teljes képernyős módba fog váltani.
-         Kérlek kattintsd a <span class="key"> Folytatás </span> gombra</b></p></div>`
+         Kérlek, kattints a <span class="key"> Folytatás </span> gombra</b></p></div>`
         }
         else if (language == "EN") {
             return `<div class = "frame"><p><b>The experiment will switch to full-screen mode.</p>
@@ -140,6 +141,44 @@ var fullScreenTrial = {
 
 var consentTrial = {
     type: jsPsychSurveyMultiChoice,
+    preamble: function () {
+        if (language == "HUN") {
+            return `<div class ="consentBox">
+            <h2 style="text-align: center;">Beleegyező nyilatkozat</h2>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">Felelősségem teljes tudatában kijelentem, hogy a mai napon az Eötvös Loránd Tudományegyetem, Bognár Miklós kutatásvezető által végzett vizsgálatban</p>
+                    <ul style="text-align: justify; max-width: 800px; margin: auto;">
+                    <li>önként veszek részt.</li>
+                    <li>a vizsgálat jellegéről, annak megkezdése előtt kielégítő tájékoztatást kaptam.</li>
+					<li>elmúltam 18 éves.</li>
+                    <li>a vizsgálat idején alkohol vagy drogok hatása alatt nem állok.</li>
+					<li>pszichiátriai betegségben nem szenvedek.</li>
+					<li>nem vagyok színtévesztő.</li>
+                    </ul>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">Tudomásul veszem, hogy az azonosításomra alkalmas személyi adataimat bizalmasan kezelik.
+                    Hozzájárulok ahhoz, hogy a vizsgálat során a rólam felvett, személyem azonosítására nem alkalmas adatok más kutatók számára is hozzáférhetők legyenek.
+                    Fenntartom a jogot arra, hogy a vizsgálat során annak folytatásától bármikor elállhassak. 
+                    Ilyen esetben a rólam addig felvett adatokat törölni kell.</p>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">Tudomásul veszem, hogy csak a teljesen befejezett kitöltésért kapok pontot a <em>Pszichológiai kísérletben és tudományos aktivitásban való részvétel</em> nevű kurzuson.</p>
+                
+                
+                <h2 style="text-align: center;">Adatkezelési tájékoztató</h2>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Szigorúan bizalmasan kezelünk minden olyan személyes információt, amit a kutatás keretén belül gyűjtünk össze. 
+                A kutatás során nyert adatokat kóddal ellátva biztonságos számítógépeken tároljuk. A kutatás során nyert adatokat összegezzük. 
+                Az ELTE PPK Affektív Pszichológia Tanszék Metatudomány Kutatócsoportja, mint adatkezelő, fenti személyes adataidat bizalmasan kezeli, más adatkezelőnek, adatfeldolgozónak nem adja át.
+                E tényállás részleteit a <a href="http://metasciencelab.elte.hu/hozzajarulas-adatkezeleshez/" target=_blank">"Hozzájárulás adatkezeléshez"</a> c. dokumentum tartalmazza.</p>
+
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Az adatkezelésről szóló szabályzásról részletesebben pedig itt tájékozódhatsz:
+                <a href="https://ppk.elte.hu/file/Hozzajarulas_adatkezeleshez_melleklet_2018.pdf" target="_blank">Hozzájárulás adatkezeléshez melléklet</a></p>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">A kutatás során nyert személyes adataidat arra használjuk fel, hogy regisztrálhassuk a részvételért járó kurzuspontokat. 
+            	Az azonosítására alkalmas adatokat (NEPTUN kód) ezután törölni fogjuk. A kezelt adatok a következők:</p>
+                <ul style="text-align: justify; max-width: 800px; margin: auto;">
+                    <li>Életkor</li>
+                    <li>NEPTUN-kód</li>
+                    <li>Nem</li>
+                </ul>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Válaszaid nem lesznek semmilyen módon hozzád köthetők. Az anonimizált adataidat más kutatókkal megosztjuk.</p></div>`
+        }
+    },
     questions: [{
         prompt: function () {
             if (language == "HUN") {
@@ -184,7 +223,7 @@ var consentTrial = {
 var neptunCodeTrial = {
     type: jsPsychSurveyHtmlForm,
     preamble: function () {
-        if (language == "HUN") { return `<p>Kérlek add meg a Neptun-kódod!</p>` }
+        if (language == "HUN") { return `<p>Kérlek, add meg a Neptun-kódod!</p>` }
         else if (language == "EN") { return `<p>Please enter your Neptun code!</p>` }
     },
     html: '<input type="text" name="response" required>',
@@ -199,7 +238,7 @@ var genderTrial = {
     type: jsPsychSurveyMultiChoice,
     questions: [{
         prompt: function () {
-            if (language == "HUN") { return "Kérlek add meg a nemed!" }
+            if (language == "HUN") { return "Kérlek, add meg a nemed!" }
             else if (language == "EN") { return "Please indicate your gender!" }
         },
         name: "Gender",
@@ -223,7 +262,7 @@ var genderTrial = {
 var ageTrial = {
     type: jsPsychSurveyHtmlForm,
     preamble: function () {
-        if (language == "HUN") { return '<p>Kérlek add meg az életkorod!</p>' }
+        if (language == "HUN") { return '<p>Kérlek, add meg az életkorod!</p>' }
         else if (language == "EN") { return '<p>Please enter your age!</p>' }
     },
     html: '<input type="text" name="response" required>',
@@ -239,11 +278,12 @@ var instructionsTrial = {
     pages: function () {
         if (language == "HUN") {
             return [`<div class = "frame"><h1>Feladat</h1><h3>A képernyőn különböző irányba mutató és mozgó nyilakat fogsz látni.
-                A feladatod az lesz, hogy azon iránynak megfelelő gombot nyomd le a billentyűzeten, 
-                amelyik irányba a nyilak <i>mozognak</i>.</h3>
+                A feladatod az lesz, hogy a nyilak <i>mozgásirányára</i> reagálj. Ezt minél gyorsabban és pontosabban tedd!</h3>
+                <h3>A nyilak <i>többsége</i> fog azonos irányba mozogni, a többi véletlenszerűen.</h3>
+                <h3>Kérlek, a nyilak <i>többségének mozgásirányának</i> megfelelő gombot nyomd meg a billentyűzeten.</h3>
                 <h2>Vigyázz!</h2>
                 <h3>A nyilak mozgásiránya nem biztos, hogy megegyezik a mutatott iránnyal.</h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
                 `<div class="frame"><h3>Amikor a nyilak által mutatott irány és a mozgás iránya megegyezik:</h3>
                 <div class="animFrame">
                 <img src="arrow1.png" class="animCongruent">
@@ -253,20 +293,22 @@ var instructionsTrial = {
                 <img src="arrow1.png" class="animIncongruent">
                 </div>
                 <h3>Mindig a <i>mozgás</i> irányára reagálj!</h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div></div>`,
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
                 `<div class = "frame"><h3> Ha a nyilak <b>balra</b> mozognak, nyomd meg az <span class ='key'>A</span> billentyűt! </h3> 
                 <h3>Ha a nyilak <b>jobbra</b> mozognak, nyomd meg a <span class ='key'>K</span> billentyűt!</h3> 
                 <h3>Ha a nyilak <b>felfelé</b> mozognak, nyomd meg az <span class ='key'>E</span> billentyűt! </h3> 
                 <h3>Ha a nyilak <b>lefelé</b> mozognak, nyomd meg a <span class ='key'>N</span> billentyűt! </h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
-                `<div class = "frame"><h3>Kérlek mindig igyekezz a minél gyorsabb és pontosabb válaszadásra.</h3>
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
+                `<div class = "frame"><h3>Kérlek, mindig igyekezz a minél gyorsabb és pontosabb válaszadásra.</h3>
                     <h3> A kísérlet egy gyakorló blokkal kezdődik.</h3>
-                    <p> Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`]
+                    <p> Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`]
         }
         else if (language == "EN") {
             return [`<div class = "frame"><h1>Task</h1><h3>You will see arrows on the screen pointing and moving in different directions.
-                Your task is to press the key corresponding to the direction the arrows 
-                are <i>moving</i>.</h3>
+                Your task is to react to the direction in which the arrows 
+                are <i>moving</i> as quickly and as accurately as possible.</h3>
+                <h3>The <i>majority</i> of the arrows will move in the same direction, while the rest of them will float on the screen randomly.</h3>
+                <h3>Please press the key on your keyboard that corresponds to the direction in which the <i>majority</i> of the arrows are <i>moving</i>.</h3>
                 <h2>Be careful!</h2>
                 <h3>The direction the arrows move in may not match the direction in which they point.</h3>
                 <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
@@ -278,10 +320,10 @@ var instructionsTrial = {
                 <div class="animFrame">
                 <img src="arrow1.png" class="animIncongruent">
                 </div>
-                <h3>Always respond to the direction they <i>move</i>!</h3>
+                <h3>Always respond to the direction of the <i>movement</i>!</h3>
                 <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
                 `<div class = "frame"><h3>If the arrows are moving to the <i>left</i>, press the <span class='key'>A</span> key.</h3> 
-                <h3>If the arrows are moving to the<i>right</i>, press the <span class='key'>K</span> key.</h3> 
+                <h3>If the arrows are moving to the <i>right</i>, press the <span class='key'>K</span> key.</h3> 
                 <h3>If the arrows are moving <i>upwards</i>, press the <span class='key'>E</span> key.</h3> 
                 <h3>If the arrows are moving <i>downwards</i>, press the <span class='key'>N</span> key.</h3>
                 <p>Press <span class='key'>SPACE</span> to continue<p></div>`,
@@ -362,7 +404,7 @@ var expTrial = {
         else if (["vertical_c2", "vertical_i2"].includes(c)) { return ["n"] }
         else if (["vertical_c1", "vertical_i1"].includes(c)) { return ["e"] }
     },
-    movement_speed: 9,
+    movement_speed: 7,
     data: {
         collect: true,
         task: "expTrial"
@@ -440,7 +482,7 @@ var repeatPractice = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function () {
         if (language == "HUN") {
-            return `<div class = "frame"><p>Túl sokat hibáztál a gyakorló blokkban. Kérlek nyomd be a <span class="key">SPACE</span> billentyűt,
+            return `<div class = "frame"><p>Túl sokat hibáztál a gyakorló blokkban. Kérlek, nyomd meg a <span class="key">SPACE</span> billentyűt,
             hogy újrakezd a gyakorlást!</p></div>`
         }
         else if (language == "EN") {
@@ -536,11 +578,11 @@ function startExperiment() {
         preLoadTrial,
         languageTrial,
         welcomeTrial,
-        fullScreenTrial,
+        //fullScreenTrial,
         consentTrial,
-        neptunCodeTrial,
-        genderTrial,
-        ageTrial,
+        //neptunCodeTrial,
+        //genderTrial,
+        //ageTrial,
         instructionsTrial,
         practiceStart
     )
@@ -638,15 +680,15 @@ function startExperiment() {
 
 }
 
-try{
-    jatos.onLoad(function() {
+try {
+    jatos.onLoad(function () {
         console.log("Jatos loaded, starting experiment...")
-         var debug = jatos.urlQueryParameters.debug === "1" ? 1 : 0;
-         console.log("debug: " + debug)
+        var debug = jatos.urlQueryParameters.debug === "1" ? 1 : 0;
+        console.log("debug: " + debug)
         loadExperiment()
     }
     )
-}catch(error){
+} catch (error) {
     console.log(error)
     console.log("Jatos was not found, starting experiment...")
     var debug = new URLSearchParams(window.location.search).get('debug') === '1'

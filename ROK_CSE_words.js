@@ -120,7 +120,7 @@ var welcomeTrial = {
     <p>The aim of the study is to investigate the mechanisms of cognitive control.</p>
     <h3>Participation</h3>
     <p>Participation is voluntary. You can withdraw from participation at any point of the experiment without having to provide any reason for your actions.
-    If you have any questions or suggestions concerning the experiment, please write an email to the following address: <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a></p></div>
+    If you have any questions or suggestions concerning the experiment, please write an email to the following address: <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a>.</p></div>
   `
         }
     },
@@ -139,7 +139,7 @@ var fullScreenTrial = {
     message: function () {
         if (language == "HUN") {
             return `<div class = "frame"><p><b>A kísérlet teljes képernyős módba fog váltani.
-         Kérlek kattintsd a <span class="key"> Folytatás </span> gombra</b></p></div>`
+         Kérlek, kattintsd a <span class="key"> Folytatás </span> gombra</b>!</p></div>`
         }
         else if (language == "EN") {
             return `<div class = "frame"><p><b>The experiment will switch to full-screen mode.</p>
@@ -159,10 +159,84 @@ var fullScreenTrial = {
 
 var consentTrial = {
     type: jsPsychSurveyMultiChoice,
+    preamble: function () {
+        if (language == "HUN") {
+            return `<div class ="consentBox">
+            <h2 style="text-align: center;">Informed Consent Form</h2>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">I hereby declare with full awareness of my responsibility, that today I am participating in a study conducted by Miklós Bognár (PI) and the following apply to me:</p>
+                    <ul style="text-align: justify; max-width: 800px; margin: auto;">
+                    <li>I am participating voluntarily.</li>
+                    <li>I received sufficient information regarding the nature of the experiment before it began.</li>
+					<li>I am over 18 years of age.</li>
+                    <li>I am not under the influence of alcohol or any illicit substances during the experiment.</li>
+					<li>I do not have any form of psychiatric illness.</li>
+					<li>I do not have any difficulties with color recognition.</li>
+                    </ul>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">I acknowledge that my personal data capable of identifying me will be treated confidentially. 
+                I consent to the data collected about me during the study—provided it is not capable of identifying me personally — being made accessible to other researchers. 
+                I reserve the right to withdraw from the study at any time. 
+                In such an event, the data collected about me up to that point must be deleted.</p>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">Tudomásul veszem, hogy csak a teljesen befejezett kitöltésért kapok pontot a <em>Pszichológiai kísérletben és tudományos aktivitásban való részvétel</em> nevű kurzuson.</p>
+                
+                
+                <h2 style="text-align: center;">Adatkezelési tájékoztató</h2>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Szigorúan bizalmasan kezelünk minden olyan személyes információt, amit a kutatás keretén belül gyűjtünk össze. 
+                A kutatás során nyert adatokat kóddal ellátva biztonságos számítógépeken tároljuk. A kutatás során nyert adatokat összegezzük. 
+                Az ELTE PPK Affektív Pszichológia Tanszék Metatudomány Kutatócsoportja, mint adatkezelő, fenti személyes adataidat bizalmasan kezeli, más adatkezelőnek, adatfeldolgozónak nem adja át.
+                E tényállás részleteit a <a href="http://metasciencelab.elte.hu/hozzajarulas-adatkezeleshez/" target=_blank">"Hozzájárulás adatkezeléshez"</a> c. dokumentum tartalmazza.</p>
+
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Az adatkezelésről szóló szabályzásról részletesebben pedig itt tájékozódhatsz:
+                <a href="https://ppk.elte.hu/file/Hozzajarulas_adatkezeleshez_melleklet_2018.pdf" target="_blank">Hozzájárulás adatkezeléshez melléklet</a></p>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">A kutatás során nyert személyes adataidat arra használjuk fel, hogy regisztrálhassuk a részvételért járó kurzuspontokat. 
+            	Az azonosítására alkalmas adatokat (NEPTUN kód) ezután törölni fogjuk. A kezelt adatok a következők:</p>
+                <ul style="text-align: justify; max-width: 800px; margin: auto;">
+                    <li>Életkor</li>
+                    <li>NEPTUN-kód</li>
+                    <li>Nem</li>
+                </ul>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Válaszaid nem lesznek semmilyen módon hozzád köthetők. Az anonimizált adataidat más kutatókkal megosztjuk.</p></div>`
+        }
+        else if (language == "EN") {
+            return `<div class ="consentBox">
+            <h2 style="text-align: center;">Beleegyező nyilatkozat</h2>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">Felelősségem teljes tudatában kijelentem, hogy a mai napon az Eötvös Loránd Tudományegyetem, Bognár Miklós kutatásvezető által végzett vizsgálatban</p>
+                    <ul style="text-align: justify; max-width: 800px; margin: auto;">
+                    <li>önként veszek részt.</li>
+                    <li>a vizsgálat jellegéről, annak megkezdése előtt kielégítő tájékoztatást kaptam.</li>
+					<li>elmúltam 18 éves.</li>
+                    <li>a vizsgálat idején alkohol vagy drogok hatása alatt nem állok.</li>
+					<li>pszichiátriai betegségben nem szenvedek.</li>
+					<li>nem vagyok színtévesztő.</li>
+                    </ul>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">Tudomásul veszem, hogy az azonosításomra alkalmas személyi adataimat bizalmasan kezelik.
+                    Hozzájárulok ahhoz, hogy a vizsgálat során a rólam felvett, személyem azonosítására nem alkalmas adatok más kutatók számára is hozzáférhetők legyenek.
+                    Fenntartom a jogot arra, hogy a vizsgálat során annak folytatásától bármikor elállhassak. 
+                    Ilyen esetben a rólam addig felvett adatokat törölni kell.</p>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">Tudomásul veszem, hogy csak a teljesen befejezett kitöltésért kapok pontot a <em>Pszichológiai kísérletben és tudományos aktivitásban való részvétel</em> nevű kurzuson.</p>
+                
+                
+                <h2 style="text-align: center;">Adatkezelési tájékoztató</h2>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Szigorúan bizalmasan kezelünk minden olyan személyes információt, amit a kutatás keretén belül gyűjtünk össze. 
+                A kutatás során nyert adatokat kóddal ellátva biztonságos számítógépeken tároljuk. A kutatás során nyert adatokat összegezzük. 
+                Az ELTE PPK Affektív Pszichológia Tanszék Metatudomány Kutatócsoportja, mint adatkezelő, fenti személyes adataidat bizalmasan kezeli, más adatkezelőnek, adatfeldolgozónak nem adja át.
+                E tényállás részleteit a <a href="http://metasciencelab.elte.hu/hozzajarulas-adatkezeleshez/" target=_blank">"Hozzájárulás adatkezeléshez"</a> c. dokumentum tartalmazza.</p>
+
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Az adatkezelésről szóló szabályzásról részletesebben pedig itt tájékozódhatsz:
+                <a href="https://ppk.elte.hu/file/Hozzajarulas_adatkezeleshez_melleklet_2018.pdf" target="_blank">Hozzájárulás adatkezeléshez melléklet</a></p>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">A kutatás során nyert személyes adataidat arra használjuk fel, hogy regisztrálhassuk a részvételért járó kurzuspontokat. 
+            	Az azonosítására alkalmas adatokat (NEPTUN kód) ezután törölni fogjuk. A kezelt adatok a következők:</p>
+                <ul style="text-align: justify; max-width: 800px; margin: auto;">
+                    <li>Életkor</li>
+                    <li>NEPTUN-kód</li>
+                    <li>Nem</li>
+                </ul>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Válaszaid nem lesznek semmilyen módon hozzád köthetők. Az anonimizált adataidat más kutatókkal megosztjuk.</p></div>`
+        }
+    },
     questions: [{
         prompt: function () {
             if (language == "HUN") {
-                return `A beleegyező nyilatkozatot elolvastam és beleegyezem a kutatásban való részvételbe.`
+                return `A beleegyező nyilatkozatot és az adatkezelési tájékoztatót elolvastam és beleegyezem a kutatásban való részvételbe.`
             }
             else if (language == "EN") {
                 return `I have read the consent form and I agree to participate in the study.`
@@ -203,7 +277,7 @@ var consentTrial = {
 var neptunCodeTrial = {
     type: jsPsychSurveyHtmlForm,
     preamble: function () {
-        if (language == "HUN") { return `<p>Kérlek add meg a Neptun-kódod!</p>` }
+        if (language == "HUN") { return `<p>Kérlek, add meg a Neptun-kódod!</p>` }
         else if (language == "EN") { return `<p>Please enter your Neptun code!</p>` }
     },
     html: '<input type="text" name="response" required>',
@@ -218,7 +292,7 @@ var genderTrial = {
     type: jsPsychSurveyMultiChoice,
     questions: [{
         prompt: function () {
-            if (language == "HUN") { return "Kérlek add meg a nemed!" }
+            if (language == "HUN") { return "Kérlek, add meg a nemed!" }
             else if (language == "EN") { return "Please indicate your gender!" }
         },
         name: "Gender",
@@ -242,7 +316,7 @@ var genderTrial = {
 var ageTrial = {
     type: jsPsychSurveyHtmlForm,
     preamble: function () {
-        if (language == "HUN") { return '<p>Kérlek add meg az életkorod!</p>' }
+        if (language == "HUN") { return '<p>Kérlek, add meg az életkorod!</p>' }
         else if (language == "EN") { return '<p>Please enter your age!</p>' }
     },
     html: '<input type="text" name="response" required>',
@@ -259,11 +333,12 @@ var instructionsTrial = {
         if (language == "HUN") {
             return [`<div class = "frame"><h1>Feladat</h1><h3>A képernyőn irányokat jelölő szavak („BAL”, „JOBB”, „FEL”, „LE”) fognak megjelenni,
                  amelyek különböző irányokba mozognak.
-                A feladatod az lesz, hogy azon iránynak megfelelő gombot nyomd le a billentyűzeten, 
-                amelyik irányba a szavak <i>mozognak</i>.</h3>
+                A feladatod az lesz, hogy a szavak <i>mozgásirányára</i> reagálj. Ezt minél gyorsabban és pontosabban tedd!</h3>
+                <h3>A szavak <i>többsége</i> fog azonos irányba mozogni, a többi véletlenszerűen.</h3>
+                <h3>Kérlek, a szavak <i>többségének mozgásirányának</i> megfelelő gombot nyomd meg a billentyűzeten.</h3>
                 <h2>Vigyázz!</h2>
                 <h3>A szavak mozgásiránya nem biztos, hogy megegyezik a szavak által jelölt iránnyal.</h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
                 `<div class="frame"><h3>Amikor a szó által jelölt irány és a mozgás iránya megegyezik:</h3>
                 <div class="animFrameWord">
                 <img src="jobb.png" class="animCongruentWord">
@@ -273,25 +348,27 @@ var instructionsTrial = {
                 <img src="jobb.png" class="animIncongruentWord">
                 </div>
                 <h3>Mindig a <i>mozgás</i> irányára reagálj!</h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div></div>`,
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
                 `<div class = "frame"><h3> Ha a szavak <i>balra</i> mozognak, nyomd meg az <span class ='key'>A</span> billentyűt! </h3> 
                 <h3>Ha a szavak <i>jobbra</i> mozognak, nyomd meg a <span class ='key'>K</span> billentyűt!</h3> 
                 <h3>Ha a szavak <i>felfelé</i> mozognak, nyomd meg az <span class ='key'>E</span> billentyűt! </h3> 
                 <h3>Ha a szavak <i>lefelé</i> mozognak, nyomd meg a <span class ='key'>N</span> billentyűt! </h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`,
-                `<div class = "frame"><h3>Kérlek mindig igyekezz a minél gyorsabb és pontosabb válaszadásra.</h3>
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
+                `<div class = "frame"><h3>Kérlek, mindig igyekezz a minél gyorsabb és pontosabb válaszadásra.</h3>
                     <h3> A kísérlet egy gyakorló blokkal kezdődik.</h3>
-                    <p> Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz</p></div>`]
+                    <p> Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`]
         }
         else if (language == "EN") {
             return [`<div class = "frame"><h1>Task</h1><h3>You will see words on the screen indicating certain
-                directions ("LEFT","RIGHT", "UP", "DOWN"). The words will also be moving in different directions.
-                Your task is to press the key corresponding to the direction the words 
-                are <i>moving</i>.</h3>
+                directions ("LEFT", "RIGHT", "UP", "DOWN"). The words will also be moving in different directions.
+                Your task is to react to the direction in which the words 
+                are <i>moving</i> as quickly and as accurately as possible.</h3>
+                <h3>The <i>majority</i> of the words will move in the same direction, while the rest of them will float on the screen randomly.</h3>
+                <h3>Please press the key on your keyboard that corresponds to the direction in which the <i>majority</i> of the words are <i>moving</i>.</h3>
                 <h2>Be careful!</h2>
                 <h3>The direction the words move in may not match the direction they indicate.</h3>
                 <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
-                `<div class="frame"><h3>When the indicated direction and matches the direction of the movement:</h3>
+                `<div class="frame"><h3>When the indicated direction matches the direction of the movement:</h3>
                 <div class="animFrameWord">
                 <img src="RIGHT.png" class="animCongruentWord">
                 </div>
@@ -305,7 +382,7 @@ var instructionsTrial = {
                 <h3>If the words are moving to the <i>right</i>, press the <span class='key'>K</span> key.</h3> 
                 <h3>If the words are moving <i>upwards</i>, press the <span class='key'>E</span> key.</h3> 
                 <h3>If the words are moving <i>downwards</i>, press the <span class='key'>N</span> key.</h3>
-                <p>Press <span class='key'>SPACE</span> to continue<p></div>`,
+                <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
                 `<div class = "frame"><h3>Please always try to respond as quickly and accurately as possible!</h3>
                     <h3>The experiment begins with a practice block.</h3>
                     <p> Press <span class='key'>SPACE</span> to continue</p></div>`]
@@ -332,7 +409,7 @@ var expTrial = {
         if (language == "HUN") { return 20 }
         else if (language == "EN") { return 20 }
     },
-    number_of_oobs: 40,
+    number_of_oobs: 30,
     coherence_movement: 60,
     trial_duration: trialDuration,
     stimulus_image: function () {
@@ -374,7 +451,6 @@ var expTrial = {
     aperture_height: 500,
     aperture_width: 800,
     coherence_orientation: 100,
-
     coherence_orientation_opposite: 0,
     coherence_movement_opposite: 0,
     coherent_movement_direction: function () {
@@ -392,7 +468,7 @@ var expTrial = {
         else if (["vertical_c1", "vertical_i2"].includes(c)) { return ["n"] }
         else if (["vertical_c2", "vertical_i1"].includes(c)) { return ["e"] }
     },
-    movement_speed: 9,
+    movement_speed: 7,
     data: {
         collect: true,
         task: "expTrial"
@@ -472,7 +548,7 @@ var repeatPractice = {
     type: jsPsychHtmlKeyboardResponse,
     stimulus: function () {
         if (language == "HUN") {
-            return `<div class = "frame"><p>Túl sokat hibáztál a gyakorló blokkban. Kérlek nyomd be a <span class="key">SPACE</span> billentyűt,
+            return `<div class = "frame"><p>Túl sokat hibáztál a gyakorló blokkban. Kérlek, nyomd meg a <span class="key">SPACE</span> billentyűt,
             hogy újrakezd a gyakorlást!</p></div>`
         }
         else if (language == "EN") {
