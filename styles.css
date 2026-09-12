@@ -13,6 +13,13 @@ h2 {
     font-size: 32px;
 }
 
+h4 {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 32px;
+    font-weight: 500;
+
+}
+
 h3 {
     font-family: "Times New Roman", Times, serif;
     font-weight: 560;
@@ -26,7 +33,7 @@ p {
 
 .consentBox {
     max-height: 600px;
-    max-width: 2000px;
+    width: 980px;
     overflow-y: scroll;
     border: 1px solid;
     padding: 40px;

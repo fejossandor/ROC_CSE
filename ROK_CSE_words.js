@@ -35,6 +35,156 @@ async function loadExperiment() {
 
 var debug = new URLSearchParams(window.location.search).get('debug') === '1'
 
+
+var expText = {
+    "welcomeHun": `<div class = "frame"><h2>Üdvözlünk a <b>Metatudomány Kutatócsoport</b> vizsgálatában!</h2>
+                <p>Egy tudományos kutatásban veszel részt, amelynek vezetője <b>Bognár Miklós</b>, az ELTE Affektív Pszichológia Tanszékének kutatója.
+                A kutatás célja megvizsgálni, hogy miként működik a kognitív kontroll.</p>
+                <h3>Részvétel</h3>
+                <p>A kutatásban való részvétel teljesen önkéntes. A vizsgálatot bármikor indoklás nélkül megszakíthatod.
+                Ha bármilyen kérdésed, észrevételed vagy problémád van a kutatással kapcsolatban,
+                írj Bognár Miklósnak a <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a> címre.</p></div>`,
+
+    "welcomeEn": `<div class = "frame"><h2>Welcome to the experiment of the <b>Metascience Lab</b>!</h2>
+                <p>You are participating in a scientific experiment carried out under the supervision of <b>Miklós Bognár</b>, researcher at the Department of Affective Psychology at Eötvös Loránd University.</p>
+                <p>The aim of the study is to investigate the mechanisms of cognitive control.</p>
+                <h3>Participation</h3>
+                <p>Participation is voluntary. You can withdraw from participation at any point of the experiment without having to provide any reason for your actions.
+                If you have any questions or suggestions concerning the experiment, please write an email to the following address: <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a>.</p></div>`,
+
+
+    "consentHun": `<div class ="consentBox">
+                <h2 style="text-align: center;">Beleegyező nyilatkozat</h2>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">Felelősségem teljes tudatában kijelentem, hogy a mai napon az Eötvös Loránd Tudományegyetem, Bognár Miklós kutatásvezető által végzett vizsgálatban</p>
+                    <ul style="text-align: justify; max-width: 800px; margin: auto;">
+                    <li>önként veszek részt.</li>
+                    <li>a vizsgálat jellegéről, annak megkezdése előtt kielégítő tájékoztatást kaptam.</li>
+					<li>elmúltam 18 éves.</li>
+                    <li>a vizsgálat idején alkohol vagy drogok hatása alatt nem állok.</li>
+					<li>pszichiátriai betegségben nem szenvedek.</li>
+					<li>nem vagyok színtévesztő.</li>
+                    </ul>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">Tudomásul veszem, hogy az azonosításomra alkalmas személyi adataimat bizalmasan kezelik.
+                    Hozzájárulok ahhoz, hogy a vizsgálat során a rólam felvett, személyem azonosítására nem alkalmas adatok más kutatók számára is hozzáférhetők legyenek.
+                    Fenntartom a jogot arra, hogy a vizsgálat során annak folytatásától bármikor elállhassak. 
+                    Ilyen esetben a rólam addig felvett adatokat törölni kell.</p>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">Tudomásul veszem, hogy csak a teljesen befejezett kitöltésért kapok pontot a <i>Pszichológiai kísérletben és tudományos aktivitásban való részvétel</i> nevű kurzuson.</p>
+                
+                
+                <h2 style="text-align: center;">Adatkezelési tájékoztató</h2>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Szigorúan bizalmasan kezelünk minden olyan személyes információt, amit a kutatás keretén belül gyűjtünk össze. 
+                A kutatás során nyert adatokat kóddal ellátva biztonságos számítógépeken tároljuk. A kutatás során nyert adatokat összegezzük. 
+                Az ELTE PPK Affektív Pszichológia Tanszék Metatudomány Kutatócsoportja, mint adatkezelő, fenti személyes adataidat bizalmasan kezeli, más adatkezelőnek, adatfeldolgozónak nem adja át.
+                E tényállás részleteit a <a href="http://metasciencelab.elte.hu/hozzajarulas-adatkezeleshez/" target=_blank">"Hozzájárulás adatkezeléshez"</a> c. dokumentum tartalmazza.</p>
+
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Az adatkezelésről szóló szabályzásról részletesebben pedig itt tájékozódhatsz:
+                <a href="https://ppk.elte.hu/file/Hozzajarulas_adatkezeleshez_melleklet_2018.pdf" target="_blank">Hozzájárulás adatkezeléshez melléklet</a></p>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">A kutatás során nyert személyes adataidat arra használjuk fel, hogy regisztrálhassuk a részvételért járó kurzuspontokat. 
+            	Az azonosítására alkalmas adatokat (NEPTUN-kód) ezután törölni fogjuk. A kezelt adatok a következők:</p>
+                <ul style="text-align: justify; max-width: 800px; margin: auto;">
+                    <li>Életkor</li>
+                    <li>NEPTUN-kód</li>
+                    <li>Nem</li>
+                </ul>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">Válaszaid nem lesznek semmilyen módon hozzád köthetők. Az anonimizált adataidat más kutatókkal megosztjuk.</p></div>`,
+
+    "consentEn": `<div class ="consentBox">
+                <h2 style="text-align: center;">Informed Consent Form</h2>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">I hereby declare with full awareness of my responsibility that today I am participating in a study conducted by Miklós Bognár (PI) and that the following apply to me:</p>
+                    <ul style="text-align: justify; max-width: 800px; margin: auto;">
+                    <li>I am participating voluntarily.</li>
+                    <li>I received sufficient information regarding the nature of the experiment before it began.</li>
+					<li>I am over 18 years of age.</li>
+                    <li>I am not under the influence of alcohol or any illicit substances during the experiment.</li>
+					<li>I do not have any form of psychiatric illness.</li>
+					<li>I do not have any difficulties with color recognition.</li>
+                    </ul>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">I acknowledge that my personal data capable of identifying me will be treated confidentially. 
+                I consent to the data collected about me during the study — provided it is not capable of identifying me personally — being made accessible to other researchers. 
+                I reserve the right to withdraw from the study at any time. 
+                In such an event, the data collected about me up to that point will be deleted.</p>
+                <p style="text-align: justify; max-width: 800px; margin: auto;">I acknowledge that only full completion of the experiment will earn me points in the <i>Participation in Psychological Experiments and Scientific Activity</i> course.</p>
+                
+                
+                <h2 style="text-align: center;">Privacy Notice</h2>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">We handle any personal data collected during the study strictly confidentially. 
+                The accumulated data are pseudonymized and stored on a secure computer. The data collected during the study are aggregated.
+                As data controller, the Metascience Lab of the Department of Affective Psychology, Faculty of Education and Psychology,Eötvös Loránd University handles your personal data confidentially and does not share them with other data controllers or data processors.
+                Details about the aforementioned statements are included in the following document: <a href="http://metasciencelab.elte.hu/hozzajarulas-adatkezeleshez/" target=_blank">"Consent to Data Processing"</a>.</p>
+
+            	<p style="text-align: justify; max-width: 800px; margin: auto;"> More information can be acquired regarding laws and regulations on data processing:
+                <a href="https://ppk.elte.hu/file/Hozzajarulas_adatkezeleshez_melleklet_2018.pdf" target="_blank">Consent to Data Processing Appendix</a>.</p>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">The collected personal data will be used to register your course points for your participation.
+            	Data that can be used for identification (NEPTUN code) will be deleted afterwards. The processed data are the following:</p>
+                <ul style="text-align: justify; max-width: 800px; margin: auto;">
+                    <li>Age</li>
+                    <li>NEPTUN code</li>
+                    <li>Gender</li>
+                </ul>
+            	<p style="text-align: justify; max-width: 800px; margin: auto;">It will not be possible to identify you based on your answers. The anonymized data will be shared with other researchers.</p></div>`,
+
+    "instructionsHun1": `<div class = "frame"><h1>Feladat</h1><h4>A képernyőn irányokat jelölő szavak („BAL”, „JOBB”, „FEL”, „LE”) fognak megjelenni,
+                 amelyek különböző irányokba mozognak.
+                A feladatod az lesz, hogy a szavak <i><b>mozgásirányára</b></i> reagálj. Ezt minél gyorsabban és pontosabban tedd!</h4>
+                <h4>A szavak <i><b>többsége</b></i> fog azonos irányba mozogni, a többi véletlenszerűen.</h4>
+                <h4>Kérlek, a szavak <i><b>többségének mozgásirányának</b></i> megfelelő gombot nyomd meg a billentyűzeten.</h4>
+                <h2>Vigyázz!</h2>
+                <h3>A szavak mozgásiránya nem biztos, hogy megegyezik a szavak által jelölt iránnyal.</h3>
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
+
+    "instructionsHun2": `<div class="frame"><h3>Amikor a szó által jelölt irány és a mozgás iránya megegyezik:</h3>
+                <div class="animFrameWord">
+                <img src="jobb.png" class="animCongruentWord">
+                </div>
+                <h3>Amikor a szó által jelölt irány és a mozgás iránya ellentétes:</h3>
+                <div class="animFrameWord">
+                <img src="jobb.png" class="animIncongruentWord">
+                </div>
+                <h3>Mindig a <i>mozgás</i> irányára reagálj!</h3>
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
+
+    "instructionsHun3": `<div class = "frame"><h3> Ha a szavak <i>balra</i> mozognak, nyomd meg az <span class ='key'>A</span> billentyűt! </h3> 
+                <h3>Ha a szavak <i>jobbra</i> mozognak, nyomd meg a <span class ='key'>K</span> billentyűt!</h3> 
+                <h3>Ha a szavak <i>felfelé</i> mozognak, nyomd meg az <span class ='key'>E</span> billentyűt! </h3> 
+                <h3>Ha a szavak <i>lefelé</i> mozognak, nyomd meg a <span class ='key'>N</span> billentyűt! </h3>
+                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
+
+    "instructionsHun4": `<div class = "frame"><h3>Kérlek, mindig igyekezz a minél gyorsabb és pontosabb válaszadásra.</h3>
+                    <h3> A kísérlet egy gyakorló blokkal kezdődik.</h3>
+                    <p> Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
+
+    "instructionsEn1": `<div class = "frame"><h1>Task</h1><h4>You will see words on the screen indicating certain
+                directions ("LEFT", "RIGHT", "UP", "DOWN"). The words will also be moving in different directions.
+                Your task is to react to the direction in which the words 
+                are <i><b>moving</b></i> as quickly and as accurately as possible.</h4>
+                <h4>The <i><b>majority</b></i> of the words will move in the same direction, while the rest of them will float on the screen randomly.</h4>
+                <h4>Please press the key on your keyboard that corresponds to the direction in which the <i><b>majority</b></i> of the words are <i><b>moving</b></i>.</h4>
+                <h2>Be careful!</h2>
+                <h3>The direction the words move in may not match the direction they indicate.</h3>
+                <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
+
+    "instructionsEn2": `<div class="frame"><h3>When the indicated direction matches the direction of the movement:</h3>
+                <div class="animFrameWord">
+                <img src="RIGHT.png" class="animCongruentWord">
+                </div>
+                <h3>When the indicated direction and the movement direction differ:</h3>
+                <div class="animFrameWord">
+                <img src="RIGHT.png" class="animIncongruentWord">
+                </div>
+                <h3>Always respond to the direction of the <i>movement</i>!</h3>
+                <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
+
+    "instructionsEn3": `<div class = "frame"><h3>If the words are moving to the <i>left</i>, press the <span class='key'>A</span> key.</h3> 
+                <h3>If the words are moving to the <i>right</i>, press the <span class='key'>K</span> key.</h3> 
+                <h3>If the words are moving <i>upwards</i>, press the <span class='key'>E</span> key.</h3> 
+                <h3>If the words are moving <i>downwards</i>, press the <span class='key'>N</span> key.</h3>
+                <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
+
+    "instructionsEn4": `<div class = "frame"><h3>Please always try to respond as quickly and accurately as possible!</h3>
+                    <h3>The experiment begins with a practice block.</h3>
+                    <p> Press <span class='key'>SPACE</span> to continue</p></div>`}
+
+
 var timeline = []
 
 var language;
@@ -105,23 +255,10 @@ var welcomeTrial = {
     type: jsPsychHtmlButtonResponse,
     stimulus: function () {
         if (language == "HUN") {
-            return `
-    <div class = "frame"><h2>Üdvözlünk a <b>Metatudomány Kutatócsoport</b> vizsgálatában!</h2>
-    <p>Egy tudományos kutatásban veszel részt, amelynek vezetője <b>Bognár Miklós</b>, az ELTE Affektív Pszichológia Tanszékének kutatója.
-    A kutatás célja megvizsgálni, hogy miként működik a kognitív kontroll.</p>
-    <h3>Részvétel</h3>
-    <p>A kutatásban való részvétel teljesen önkéntes. A vizsgálatot bármikor indoklás nélkül megszakíthatod.
-    Ha bármilyen kérdésed, észrevételed vagy problémád van a kutatással kapcsolatban,
-    írj Bognár Miklósnak a <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a> címre.</p></div>
-  `}
+            return expText.welcomeHun
+        }
         else if (language == "EN") {
-            return `<div class = "frame"><h2>Welcome to the experiment of the <b>Metascience Lab</b>!</h2>
-    <p>You are participating in a scientific experiment carried out under the supervision of <b>Miklós Bognár</b>, researcher at the Department of Affective Psychology at Eötvös Loránd University.</p>
-    <p>The aim of the study is to investigate the mechanisms of cognitive control.</p>
-    <h3>Participation</h3>
-    <p>Participation is voluntary. You can withdraw from participation at any point of the experiment without having to provide any reason for your actions.
-    If you have any questions or suggestions concerning the experiment, please write an email to the following address: <a href="mailto:bognar.miklos@ppk.elte.hu">bognar.miklos@ppk.elte.hu</a>.</p></div>
-  `
+            return expText.welcomeEn
         }
     },
     choices: function () {
@@ -161,76 +298,10 @@ var consentTrial = {
     type: jsPsychSurveyMultiChoice,
     preamble: function () {
         if (language == "HUN") {
-            return `<div class ="consentBox">
-            <h2 style="text-align: center;">Informed Consent Form</h2>
-                <p style="text-align: justify; max-width: 800px; margin: auto;">I hereby declare with full awareness of my responsibility, that today I am participating in a study conducted by Miklós Bognár (PI) and the following apply to me:</p>
-                    <ul style="text-align: justify; max-width: 800px; margin: auto;">
-                    <li>I am participating voluntarily.</li>
-                    <li>I received sufficient information regarding the nature of the experiment before it began.</li>
-					<li>I am over 18 years of age.</li>
-                    <li>I am not under the influence of alcohol or any illicit substances during the experiment.</li>
-					<li>I do not have any form of psychiatric illness.</li>
-					<li>I do not have any difficulties with color recognition.</li>
-                    </ul>
-                <p style="text-align: justify; max-width: 800px; margin: auto;">I acknowledge that my personal data capable of identifying me will be treated confidentially. 
-                I consent to the data collected about me during the study—provided it is not capable of identifying me personally — being made accessible to other researchers. 
-                I reserve the right to withdraw from the study at any time. 
-                In such an event, the data collected about me up to that point must be deleted.</p>
-                <p style="text-align: justify; max-width: 800px; margin: auto;">Tudomásul veszem, hogy csak a teljesen befejezett kitöltésért kapok pontot a <em>Pszichológiai kísérletben és tudományos aktivitásban való részvétel</em> nevű kurzuson.</p>
-                
-                
-                <h2 style="text-align: center;">Adatkezelési tájékoztató</h2>
-            	<p style="text-align: justify; max-width: 800px; margin: auto;">Szigorúan bizalmasan kezelünk minden olyan személyes információt, amit a kutatás keretén belül gyűjtünk össze. 
-                A kutatás során nyert adatokat kóddal ellátva biztonságos számítógépeken tároljuk. A kutatás során nyert adatokat összegezzük. 
-                Az ELTE PPK Affektív Pszichológia Tanszék Metatudomány Kutatócsoportja, mint adatkezelő, fenti személyes adataidat bizalmasan kezeli, más adatkezelőnek, adatfeldolgozónak nem adja át.
-                E tényállás részleteit a <a href="http://metasciencelab.elte.hu/hozzajarulas-adatkezeleshez/" target=_blank">"Hozzájárulás adatkezeléshez"</a> c. dokumentum tartalmazza.</p>
-
-            	<p style="text-align: justify; max-width: 800px; margin: auto;">Az adatkezelésről szóló szabályzásról részletesebben pedig itt tájékozódhatsz:
-                <a href="https://ppk.elte.hu/file/Hozzajarulas_adatkezeleshez_melleklet_2018.pdf" target="_blank">Hozzájárulás adatkezeléshez melléklet</a></p>
-            	<p style="text-align: justify; max-width: 800px; margin: auto;">A kutatás során nyert személyes adataidat arra használjuk fel, hogy regisztrálhassuk a részvételért járó kurzuspontokat. 
-            	Az azonosítására alkalmas adatokat (NEPTUN kód) ezután törölni fogjuk. A kezelt adatok a következők:</p>
-                <ul style="text-align: justify; max-width: 800px; margin: auto;">
-                    <li>Életkor</li>
-                    <li>NEPTUN-kód</li>
-                    <li>Nem</li>
-                </ul>
-            	<p style="text-align: justify; max-width: 800px; margin: auto;">Válaszaid nem lesznek semmilyen módon hozzád köthetők. Az anonimizált adataidat más kutatókkal megosztjuk.</p></div>`
+            return expText.consentHun
         }
         else if (language == "EN") {
-            return `<div class ="consentBox">
-            <h2 style="text-align: center;">Beleegyező nyilatkozat</h2>
-                <p style="text-align: justify; max-width: 800px; margin: auto;">Felelősségem teljes tudatában kijelentem, hogy a mai napon az Eötvös Loránd Tudományegyetem, Bognár Miklós kutatásvezető által végzett vizsgálatban</p>
-                    <ul style="text-align: justify; max-width: 800px; margin: auto;">
-                    <li>önként veszek részt.</li>
-                    <li>a vizsgálat jellegéről, annak megkezdése előtt kielégítő tájékoztatást kaptam.</li>
-					<li>elmúltam 18 éves.</li>
-                    <li>a vizsgálat idején alkohol vagy drogok hatása alatt nem állok.</li>
-					<li>pszichiátriai betegségben nem szenvedek.</li>
-					<li>nem vagyok színtévesztő.</li>
-                    </ul>
-                <p style="text-align: justify; max-width: 800px; margin: auto;">Tudomásul veszem, hogy az azonosításomra alkalmas személyi adataimat bizalmasan kezelik.
-                    Hozzájárulok ahhoz, hogy a vizsgálat során a rólam felvett, személyem azonosítására nem alkalmas adatok más kutatók számára is hozzáférhetők legyenek.
-                    Fenntartom a jogot arra, hogy a vizsgálat során annak folytatásától bármikor elállhassak. 
-                    Ilyen esetben a rólam addig felvett adatokat törölni kell.</p>
-                <p style="text-align: justify; max-width: 800px; margin: auto;">Tudomásul veszem, hogy csak a teljesen befejezett kitöltésért kapok pontot a <em>Pszichológiai kísérletben és tudományos aktivitásban való részvétel</em> nevű kurzuson.</p>
-                
-                
-                <h2 style="text-align: center;">Adatkezelési tájékoztató</h2>
-            	<p style="text-align: justify; max-width: 800px; margin: auto;">Szigorúan bizalmasan kezelünk minden olyan személyes információt, amit a kutatás keretén belül gyűjtünk össze. 
-                A kutatás során nyert adatokat kóddal ellátva biztonságos számítógépeken tároljuk. A kutatás során nyert adatokat összegezzük. 
-                Az ELTE PPK Affektív Pszichológia Tanszék Metatudomány Kutatócsoportja, mint adatkezelő, fenti személyes adataidat bizalmasan kezeli, más adatkezelőnek, adatfeldolgozónak nem adja át.
-                E tényállás részleteit a <a href="http://metasciencelab.elte.hu/hozzajarulas-adatkezeleshez/" target=_blank">"Hozzájárulás adatkezeléshez"</a> c. dokumentum tartalmazza.</p>
-
-            	<p style="text-align: justify; max-width: 800px; margin: auto;">Az adatkezelésről szóló szabályzásról részletesebben pedig itt tájékozódhatsz:
-                <a href="https://ppk.elte.hu/file/Hozzajarulas_adatkezeleshez_melleklet_2018.pdf" target="_blank">Hozzájárulás adatkezeléshez melléklet</a></p>
-            	<p style="text-align: justify; max-width: 800px; margin: auto;">A kutatás során nyert személyes adataidat arra használjuk fel, hogy regisztrálhassuk a részvételért járó kurzuspontokat. 
-            	Az azonosítására alkalmas adatokat (NEPTUN kód) ezután törölni fogjuk. A kezelt adatok a következők:</p>
-                <ul style="text-align: justify; max-width: 800px; margin: auto;">
-                    <li>Életkor</li>
-                    <li>NEPTUN-kód</li>
-                    <li>Nem</li>
-                </ul>
-            	<p style="text-align: justify; max-width: 800px; margin: auto;">Válaszaid nem lesznek semmilyen módon hozzád köthetők. Az anonimizált adataidat más kutatókkal megosztjuk.</p></div>`
+            return expText.consentEn
         }
     },
     questions: [{
@@ -277,8 +348,8 @@ var consentTrial = {
 var neptunCodeTrial = {
     type: jsPsychSurveyHtmlForm,
     preamble: function () {
-        if (language == "HUN") { return `<p>Kérlek, add meg a Neptun-kódod!</p>` }
-        else if (language == "EN") { return `<p>Please enter your Neptun code!</p>` }
+        if (language == "HUN") { return `<p>Kérlek, add meg a NEPTUN-kódod!</p>` }
+        else if (language == "EN") { return `<p>Please enter your NEPTUN code!</p>` }
     },
     html: '<input type="text" name="response" required>',
     button_label: function () {
@@ -331,61 +402,16 @@ var instructionsTrial = {
     type: jsPsychInstructions,
     pages: function () {
         if (language == "HUN") {
-            return [`<div class = "frame"><h1>Feladat</h1><h3>A képernyőn irányokat jelölő szavak („BAL”, „JOBB”, „FEL”, „LE”) fognak megjelenni,
-                 amelyek különböző irányokba mozognak.
-                A feladatod az lesz, hogy a szavak <i>mozgásirányára</i> reagálj. Ezt minél gyorsabban és pontosabban tedd!</h3>
-                <h3>A szavak <i>többsége</i> fog azonos irányba mozogni, a többi véletlenszerűen.</h3>
-                <h3>Kérlek, a szavak <i>többségének mozgásirányának</i> megfelelő gombot nyomd meg a billentyűzeten.</h3>
-                <h2>Vigyázz!</h2>
-                <h3>A szavak mozgásiránya nem biztos, hogy megegyezik a szavak által jelölt iránnyal.</h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
-                `<div class="frame"><h3>Amikor a szó által jelölt irány és a mozgás iránya megegyezik:</h3>
-                <div class="animFrameWord">
-                <img src="jobb.png" class="animCongruentWord">
-                </div>
-                <h3>Amikor a szó által jelölt irány és a mozgás iránya ellentétes:</h3>
-                <div class="animFrameWord">
-                <img src="jobb.png" class="animIncongruentWord">
-                </div>
-                <h3>Mindig a <i>mozgás</i> irányára reagálj!</h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
-                `<div class = "frame"><h3> Ha a szavak <i>balra</i> mozognak, nyomd meg az <span class ='key'>A</span> billentyűt! </h3> 
-                <h3>Ha a szavak <i>jobbra</i> mozognak, nyomd meg a <span class ='key'>K</span> billentyűt!</h3> 
-                <h3>Ha a szavak <i>felfelé</i> mozognak, nyomd meg az <span class ='key'>E</span> billentyűt! </h3> 
-                <h3>Ha a szavak <i>lefelé</i> mozognak, nyomd meg a <span class ='key'>N</span> billentyűt! </h3>
-                <p>Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`,
-                `<div class = "frame"><h3>Kérlek, mindig igyekezz a minél gyorsabb és pontosabb válaszadásra.</h3>
-                    <h3> A kísérlet egy gyakorló blokkal kezdődik.</h3>
-                    <p> Nyomd meg a <span class='key'>SZÓKÖZ</span>-t a folytatáshoz!</p></div>`]
+            return [expText.instructionsHun1,
+            expText.instructionsHun2,
+            expText.instructionsHun3,
+            expText.instructionsHun4]
         }
         else if (language == "EN") {
-            return [`<div class = "frame"><h1>Task</h1><h3>You will see words on the screen indicating certain
-                directions ("LEFT", "RIGHT", "UP", "DOWN"). The words will also be moving in different directions.
-                Your task is to react to the direction in which the words 
-                are <i>moving</i> as quickly and as accurately as possible.</h3>
-                <h3>The <i>majority</i> of the words will move in the same direction, while the rest of them will float on the screen randomly.</h3>
-                <h3>Please press the key on your keyboard that corresponds to the direction in which the <i>majority</i> of the words are <i>moving</i>.</h3>
-                <h2>Be careful!</h2>
-                <h3>The direction the words move in may not match the direction they indicate.</h3>
-                <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
-                `<div class="frame"><h3>When the indicated direction matches the direction of the movement:</h3>
-                <div class="animFrameWord">
-                <img src="RIGHT.png" class="animCongruentWord">
-                </div>
-                <h3>When the indicated direction and the movement direction differ:</h3>
-                <div class="animFrameWord">
-                <img src="RIGHT.png" class="animIncongruentWord">
-                </div>
-                <h3>Always respond to the direction of the <i>movement</i>!</h3>
-                <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
-                `<div class = "frame"><h3>If the words are moving to the <i>left</i>, press the <span class='key'>A</span> key.</h3> 
-                <h3>If the words are moving to the <i>right</i>, press the <span class='key'>K</span> key.</h3> 
-                <h3>If the words are moving <i>upwards</i>, press the <span class='key'>E</span> key.</h3> 
-                <h3>If the words are moving <i>downwards</i>, press the <span class='key'>N</span> key.</h3>
-                <p>Press <span class='key'>SPACE</span> to continue</p></div>`,
-                `<div class = "frame"><h3>Please always try to respond as quickly and accurately as possible!</h3>
-                    <h3>The experiment begins with a practice block.</h3>
-                    <p> Press <span class='key'>SPACE</span> to continue</p></div>`]
+            return [expText.instructionsEn1,
+            expText.instructionsEn2,
+            expText.instructionsEn3,
+            expText.instructionsEn4]
         }
     },
     key_forward: ' ',
@@ -681,8 +707,8 @@ function startExperiment() {
                 trial_duration: 1,
                 on_finish: function () {
                     var lastBlock = jsPsych.data.get().filter({ task: "expTrial" }).last(practiceTrials[i].length);
-                    var correctRatio = jsPsych.data.get().filter({ isCorrect: true }).last(practiceTrials[i].length).count() / lastBlock.count();
-                    if (correctRatio >= 0.8) {
+                    var correctRatio = jsPsych.data.get().filter({ isCorrect: true }).last(practiceTrials[i].length).count() / (lastBlock.count());
+                    if (correctRatio >= 0.8125) {
                         practicePassed = true
                     }
                     else { practicePassed = false }
