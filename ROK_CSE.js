@@ -636,12 +636,12 @@ function startExperiment() {
     timeline.push(
         preLoadTrial,
         languageTrial,
-        //welcomeTrial,
-        //fullScreenTrial,
-        //consentTrial,
-        //neptunCodeTrial,
-        //genderTrial,
-        //ageTrial,
+        welcomeTrial,
+        fullScreenTrial,
+        consentTrial,
+        neptunCodeTrial,
+        genderTrial,
+        ageTrial,
         instructionsTrial,
         practiceStart
     )
