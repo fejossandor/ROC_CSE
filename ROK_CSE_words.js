@@ -188,6 +188,7 @@ var expText = {
 var timeline = []
 
 var language;
+var consentResponse;
 
 var preLoadTrial = {
     type: jsPsychPreload,
@@ -307,7 +308,7 @@ var consentTrial = {
     questions: [{
         prompt: function () {
             if (language == "HUN") {
-                return `A beleegyező nyilatkozatot és az adatkezelési tájékoztatót elolvastam és beleegyezem a kutatásban való részvételbe.`
+                return `A beleegyező nyilatkozatot elolvastam és beleegyezem a kutatásban való részvételbe.`
             }
             else if (language == "EN") {
                 return `I have read the consent form and I agree to participate in the study.`
@@ -330,18 +331,29 @@ var consentTrial = {
     },
     data: { collect: true },
     on_finish: function (data) {
-        var response = data.response.consent;
-        if (["No", "Nem"].includes(response)) {
+        consentResponse = data.response.consent;
+    }
+}
+
+
+var consentReject = {
+    timeline: [{
+        type: jsPsychHtmlKeyboardResponse,
+        stimulus: function () {
             if (language == "HUN") {
-                jsPsych.abortExperiment(
-                    `Megértjük a döntésed, a kísérlet számodra véget ért.`
-                )
+                return `<p> Megértjük a döntésed, a kísérlet számodra véget ért. Bezárhatod az ablakot a böngésződben.</p>`
             }
             else if (language == "EN") {
-                jsPsych.abortExperiment(
-                    "We understand your decision. The experiment has ended for you.")
+                return `<p> We understand your decision. The experiment has eneded for you. You may close this tab in your browser. </p>`
             }
+        },
+        choices: 'NO_KEYS'
+    }],
+    conditional_function: function () {
+        if (["No", "Nem"].includes(consentResponse) == true) {
+            return true
         }
+        else { return false }
     }
 }
 
@@ -672,6 +684,7 @@ function startExperiment() {
         welcomeTrial,
         fullScreenTrial,
         consentTrial,
+        consentReject,
         neptunCodeTrial,
         genderTrial,
         ageTrial,
