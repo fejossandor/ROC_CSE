@@ -47,7 +47,7 @@ Both of the experiments are available in English or in Hungarian. You have the o
 
 ## Debugging
 
-Typing `?debug=1` to the URL of the server — for instance <http://localhost:8000/ROK_CSE.html?debug=1> — sets every stimulus duration to 1ms and marks the practice criterion as passed. This enables you to check the whole flow under a minute.
+Typing `?debug=1` to the URL of the server (e.g. <http://localhost:8000/ROK_CSE.html?debug=1>) sets every stimulus duration to 1ms and marks the practice criterion as passed. This enables you to check the whole flow under a minute.
 
 
 ## About the tasks
@@ -83,18 +83,18 @@ The two experimental scripts share the same structure and differ only in the obj
 1. `loadExperiment()` loads the chosen trial-list file, and the experimental blocks are handed over to the timeline in the order in which they were generated.  
 2. `startExperiment()` then assembles the whole timeline and starts it with `jsPsych.run()`.
 
-3. The timeline begins with preloading the images, followed by the language selection (the choice sets a `language` variable, and every later screen returns its Hungarian or English text according to it). Afterwards the initial stages of the experiments come, including welcome trials, instructions screens etc.
+3. The timeline begins with preloading the images, followed by the language selection (the choice sets a `language` variable, and every trial later returns Hungarian or English text according to it). Afterwards, the introductory stage of the experiments are included, featuring the welcome trial, instructions screens etc.
 
 4. One trial consists of two timeline elements. The fixation trial displays a cross for 500 ms and then a blank screen, occupying 650 ms altogether, and accepts no responses. The ROK trial follows, presenting the moving objects for a maximum of 1500 ms; the trial ends as soon as one of the four response keys (`a`, `e`, `n`, `k`) is pressed.
 
-    **The ROK trial.** The objects are 40 images, of a size of 7% of the aperture width, moving at 9% of the aperture width per second, with 60% of them moving in the coherent direction and the remaining 40% in random directions. The condition label of the trial determines the coherent direction of movement, the coherent orientation of the objects, and the correct key. Congruency is implemented through the `coherence_orientation`: on congruent trials all objects are oriented in the direction of movement, whereas on incongruent trials all of them are oriented in the opposite direction. In `ROK_CSE_words.js`, the orientation is interpreted by the direction that the word indicates, therefore `coherence_orientation` is always set to 100. 
+    **The ROK trial:** The objects are 40 images, of a size of 7% of the aperture width, moving at 9% of the aperture width per second, with 60% of them moving in the coherent direction and the remaining 40% in random directions. The condition label of the trial determines the coherent direction of movement, the coherent orientation of the objects, and the correct key. Congruency is implemented through the `coherence_orientation`: on congruent trials all objects are oriented in the direction of movement, whereas on incongruent trials all of them are oriented in the opposite direction. In `ROK_CSE_words.js`, the orientation is interpreted by the direction that the word indicates, therefore `coherence_orientation` is always set to 100. 
 
 
 5. **Data** Only those rows are kept in the output which are marked for collection:
         - the responses of interest and the questionnaire items
-        - variables recorded by the ROK plugin: the response key, the reaction time, the correct key, the coherent direction of movement and the        coherent orientation 
-        — congruency of the trial
-        - hether the response was correct
+        - variables recorded by the ROK plugin: the response key, the reaction time, the correct key, the coherent direction of movement and the coherent orientation
+        - congruency of the trial
+        - whether the response was correct
         - identifier of the trial within the block
 
 For detailed information about the design, please visit the [preregistration](https://osf.io/qv523/overview) of the project on OSF.
