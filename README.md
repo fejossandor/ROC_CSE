@@ -35,7 +35,7 @@ If you wish to download the repository, please switch to branch **master**, beca
 ## Running the experiment on a webserver
 
 1.  [Download and setup JATOS](https://www.jatos.org/Installation.html) to remote server or personal computer.
-2.  Download the [experimental code](https://github.com/fejossandor/ROK_CSE.git).
+2.  Download the desired experimental code.
 3.  Run JATOS and import experiment by choosing `ROK_CSE.jzip` or `ROK_CSE_words.jzip` in the upload window.
 4.  Run the experiment by pressing `play`.
 
